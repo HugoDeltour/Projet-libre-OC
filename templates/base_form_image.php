@@ -1,6 +1,6 @@
 <?php
 $route = isset($post) && $post->get('id_image') ? 'modifImage&imgID='.$post->get('id_image') : 'ajoutImage' ;
-$submit = $route === 'ajoutChapitre' ? 'Envoyer' : 'Mettre à jour';
+$submit = $route === 'ajoutImage' ? 'Envoyer' : 'Mettre à jour';
 ?>
 
 <form method="post" action="../index.php?route=<?=$route;?>">
