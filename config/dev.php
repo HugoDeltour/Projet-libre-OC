@@ -1,8 +1,8 @@
 <?php
-  const HOST = 'localHost';
+  const HOST = 'localhost';
   const DB_NAME = 'libre';
   const CHARSET='utf8';
 	const DB_user='root';
 	const DB_password='';
-	const DB_host='mysql:host='.HOST.';dbname='.DB_NAME.';charset='.CHARSET;
+  const DB_host='mysql:host='.HOST.';dbname='.DB_NAME.';charset='.CHARSET.'';
 ?>

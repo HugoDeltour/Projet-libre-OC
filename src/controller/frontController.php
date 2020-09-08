@@ -100,6 +100,15 @@ class frontController extends Controller{
     ]);
   }
 
+  public function portofolio(){
+    return $this->view->rendu('portofolio');
+  }
+
+  public function mariage(){
+    $req = $this->imageDAO->getMariage();
+    return $this->view->rendu('mariage',['req'=>$req]);
+  }
+
 }
 
 ?>

@@ -23,7 +23,7 @@
                 <h1><a href="../index.php?route=image&imgID=<?=htmlspecialchars($donnees->getId());?>"><?php echo $donnees->getTitre();?></a></h1>
                 <p><?=$donnees->getDate();?></p>
                 <p><?=htmlspecialchars($donnees->getLieu());?></p>
-                <img class="img-test" src="../Photos/AVEYRON/<?=$donnees->getNom(); ?>">
+                <img class="img-test" src="../Photos/<?=$donnees->getCategorie()?>/<?=$donnees->getNom(); ?>">
               </div></br>
               <?php
           };

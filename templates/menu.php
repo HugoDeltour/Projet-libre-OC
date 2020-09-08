@@ -20,6 +20,7 @@
             }
             ?>
             <li><a href="./index.php?">Accueil</a></li>
+            <li><a href="./index.php?route=portofolio">Portofolio</a></li>
         </ul>
     </nav>
 </div>

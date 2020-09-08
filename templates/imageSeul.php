@@ -4,14 +4,14 @@ require('menu.php');
 <div id="MP-chap">
   <div id="element-central">
     <div id="image">
-      <img class="img-test" src="../Photos/AVEYRON/<?=$req->getNom()?>">
+      <img class="img-test" src="../Photos/<?=$req->getNom()?>">
     </div>
     </br>
     <div class="administration">
       <?php if($this->session->get('role')==='admin'){
         ?>
-        <a href="../index.php?route=supprimerChapitre&chapID=<?=$req->getId();?>">Supprimer</a>
-        <a href="../index.php?route=modifChapitre&chapID=<?=$req->getId();?>">Modifier</a>
+        <a href="../index.php?route=supprimerImage&imgID=<?=$req->getId();?>">Supprimer</a>
+        <a href="../index.php?route=modifImage&imgID=<?=$req->getId();?>">Modifier</a>
         <?php
       }
       ?>

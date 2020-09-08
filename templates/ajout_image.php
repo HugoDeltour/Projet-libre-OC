@@ -1,4 +1,4 @@
-<?php $this->title = "Nouveau chapitre";
+<?php $this->title = "Ajout d'image";
  require 'menu.php'; ?>
 <div id="MP-img">
   <div id="formulaireAjoutImage">

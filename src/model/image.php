@@ -53,5 +53,15 @@
         $this->lieu_image = $lieu_image;
     }
 
+    public function getCategorie(){
+      return $this->categorie_image;
+    }
+
+    public function setCategorie($categorie_image)
+    {
+        $this->categorie_image = $categorie_image;
+    }
+
+
   }
 ?>

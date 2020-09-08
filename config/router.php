@@ -62,6 +62,9 @@ class router{
         elseif ($route==='nonSignalCommentaire') {
           $this->backController->nonSignalCommentaire($this->request->getGet()->get('comID'));
         }
+        elseif ($route==='portofolio') {
+          $this->frontController->portofolio();
+        }
         else{
           $this->errorController->errorNotFound();
         }
