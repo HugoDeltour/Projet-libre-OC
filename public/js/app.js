@@ -28,9 +28,22 @@ var getHttpRequest = function () {
   return httpRequest
 }
 
-var form = document.querySelector('#formUser')
+var test = document.getElementById('test');
 
+var form = document.querySelector('#formUser');
 
-var xhr = getHttpRequest()
-xhr.open('POST', 'index.php?route=modifProfil&profilId=11', true)
-xhr.send()
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var xhr = getHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+          test.innerHTML = xhr.responseText
+      }
+    }
+  }
+  xhr.open('POST', '/test.php', true)
+  var data = new FormData(form)
+  xhr.send(data)
+
+})

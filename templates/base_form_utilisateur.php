@@ -5,7 +5,7 @@ $submit = 'Mettre à jour';
 
 <form method="post" id='formUser'>
 
-  <input type="hidden" id="varId" value="<?=htmlspecialchars($post->get('id_user'));?>">
+  <input type="hidden" id="varId" name="id" value="<?=htmlspecialchars($post->get('id_user'));?>">
 
   <label for="pseudo">Pseudo</label></br>
   <input type="text" id="pseudo" name="pseudo" value="<?= isset($post) ? htmlspecialchars($post->get('pseudo')):"";?>"></br>
