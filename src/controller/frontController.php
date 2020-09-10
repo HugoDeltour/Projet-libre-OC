@@ -78,7 +78,7 @@ class frontController extends Controller{
       $result=$this->utilisateurDAO->connexion($post);
       if($result && $result['isPasswordOK']){
         $this->session->set('connexion','Bienvenue');
-        $this->session->set('id',$result['result']['id']);
+        $this->session->set('id',$result['result']['id_user']);
         $this->session->set('role',$result['result']['nom_role']);
         $this->session->set('pseudo',$post->get('pseudo'));
         header('Location:../index.php');

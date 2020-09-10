@@ -14,7 +14,6 @@ class backController extends Controller{
         $file=$this->upload($post->get('categorie'));
         $this->imageDAO->ajoutimage($post,$file);
         $this->session->set('ajout_image','L\'image a été ajouté !');
-        header('Location: ../index.php');
       }
       return $this->view->rendu('ajout_image',[
         'post'=>$post,
@@ -30,18 +29,16 @@ class backController extends Controller{
 
   public function modifImage(parametre $post, $imgID){
     $image = $this->imageDAO->getimage($imgID);
-    $reqImg = $this->imageDAO->getimages();
     if($post->get('submit')){
       $errors = $this->validation->validate($post,'image');
       if(!$errors){
         $file=$this->upload($post->get('categorie'));
         $this->imageDAO->modifimage($post,$imgID,$file);
-        $this->session->set('modif_image','L\'image a été modifié !');
+        $this->session->set('modif_image','L\'image a été modifiée !');
         header('Location: ../index.php');
       }
       return $this->view->rendu('modif_image',[
         'image'=>$image,
-        'reqImg'=>$reqImg,
         'errors'=> $errors,
         'post'=>$post
       ]);
@@ -60,6 +57,31 @@ class backController extends Controller{
       'post'=>$post
     ]);
   }
+
+  public function modifProfil(parametre $post,$idUser){
+    $user = $this->utilisateurDAO->getProfil($idUser);
+    if($post->get('submit')){
+      $errors = $this->validation->validate($post,'utilisateur');
+      if(!$errors){
+        $this->utilisateurDAO->modifProfil($post,$imgID,$file);
+        $this->session->set('modif_profil','Le profil a été modifié !');
+        header('Location: ../index.php');
+      }
+      return $this->view->rendu('modifProfil',[
+        'errors'=> $errors,
+        'post'=>$post
+      ]);
+    }
+
+    $post->set('id_user',$user->getId());
+    $post->set('pseudo',$user->getPseudo());
+    $post->set('password',$user->getPassword());
+
+    return $this->view->rendu('modifProfil',[
+      'post'=>$post
+    ]);
+  }
+
 
   public function supprimerImage($ImgID){
     $this->imageDAO->supprimerimage($ImgID);
@@ -96,7 +118,7 @@ class backController extends Controller{
   public function upload($categorie){
     $dossier = 'Photos/'.$categorie.'/';
     $fichier = basename($_FILES['nom_img_fichier']['name']);
-    $taille_maxi = 100000;
+    $taille_maxi = ini_get('upload_max_filesize');
     $taille = filesize($_FILES['nom_img_fichier']['tmp_name']);
     $extensions = array('.png', '.gif', '.jpg', '.jpeg','.JPG');
     $extension = strrchr($_FILES['nom_img_fichier']['name'], '.');
@@ -112,26 +134,26 @@ class backController extends Controller{
     if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
     {
          //On formate le nom du fichier ici...
-         var_dump($fichier);
          $fichier = strtr($fichier,
               'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',
               'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
          if(move_uploaded_file($_FILES['nom_img_fichier']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
          {
-              $this->session->set('uplaod','Upload effectué avec succès !');
+              var_dump('Upload effectué avec succès !');
          }
          else //Sinon (la fonction renvoie FALSE).
          {
-              $this->session->set('upload','Echec de l\'upload !');
+              var_dump('Echec de l\'upload !');
          }
     }
     else
     {
-         echo $erreur;
+         var_dump($erreur);
     }
 
     return $_FILES['nom_img_fichier']['name'];
   }
+
 
 }
 ?>

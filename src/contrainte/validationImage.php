@@ -80,6 +80,9 @@ class validationImage extends validation{
     if($this->contrainte->longMax($name,$value,255)){
       return $this->contrainte->longMax('date',$value,255);
     }
+    if($this->contrainte->validateDate($name,$value)){
+      return $this->contrainte->validateDate($name,$value);
+    }
   }
 
   private function checkLieu($name,$value){

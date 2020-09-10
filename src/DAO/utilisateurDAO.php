@@ -3,6 +3,7 @@
 namespace App\src\DAO;
 
 use App\config\parametre;
+use App\src\model\utilisateur;
 
 /**
  * class utilisateurDAO
@@ -10,6 +11,14 @@ use App\config\parametre;
  * Requete SQL basé sur la table 'user'
  */
 class utilisateurDAO extends DAO{
+
+  private function buildObjectUser($row){
+    $user = new utilisateur();
+    $user->setId($row['id_user']);
+    $user->setPseudo($row['pseudo']);
+    $user->setPassword($row['password']);
+    return $user;
+  }
 
   public function inscription(parametre $post){
     $this->checkUtilisateur($post);
@@ -33,6 +42,23 @@ class utilisateurDAO extends DAO{
     $isPasswordOK = password_verify($post->get('password'),$result['password']);
     return ['result'=>$result,'isPasswordOK'=>$isPasswordOK];
   }
+
+  public function getProfil($idUser){
+    $sql = 'SELECT id_user, pseudo, password FROM user WHERE id_user=?';
+    $result = $this->createQuery($sql,[$idUser]);
+    $user = $result->fetch();
+		$result->closeCursor();
+		return $this->buildObjectUser($user);
+  }
+
+  public function modifProfil(parametre $post, $idUser){
+		$sql = 'UPDATE user SET pseudo=:pseudo,password=:password WHERE id_user =:user_id ';
+    $this->createQuery($sql,[
+      'pseudo'=>$post->get('pseudo'),
+      'password'=>password_hash($post->get('password'),PASSWORD_BCRYPT),
+      'user_id'=>$idUser
+    ]);
+	}
 
 }
 ?>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\src\contrainte;
+use \DateTime;
 /**
  * class contrainte
  * class listant les différentes contraintes utilisées
@@ -23,6 +24,17 @@ class contrainte{
     if(strlen($value)>$maxLenght){
       return '<p>Le champ '.$name.' doit contenir moins de '.$maxLenght.' caractères</p>';
     }
+  }
+
+  public function validateDate($name,$value){
+    if(strcmp($this->isValid($value,'Y-m-d'),'bool(false)')==0){
+      return '<p>La date saisi n\'est pas valide, veuillez essayer "AAAA-MM-DD"</p>';
+    }
+  }
+
+  public function isValid($date, $format = 'Y-m-d'){
+    $dt = DateTime::createFromFormat($format, $date);
+    return $dt && $dt->format($format) === $date;
   }
 
 }

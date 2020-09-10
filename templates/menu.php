@@ -11,6 +11,9 @@
                 <li><a href="./index.php?route=administration">Administration</a></li>
                 <?php
               }
+              ?>
+                <li><a href="./index.php?route=modifProfil&profilId=<?=$this->session->get('id');?>">Modification du profil</a></li>
+                <?php
             }
             else{
               ?>

@@ -65,6 +65,9 @@ class router{
         elseif ($route==='portofolio') {
           $this->frontController->portofolio();
         }
+        elseif ($route==='modifProfil') {
+          $this->backController->modifProfil($this->request->getPost(),$this->request->getGet()->get('profilId'));
+        }
         else{
           $this->errorController->errorNotFound();
         }
