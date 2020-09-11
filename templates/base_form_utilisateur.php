@@ -1,12 +1,13 @@
 <?php
 $route = 'modifProfil&profilId='.$post->get('id_user') ;
 $submit = 'Mettre à jour';
+$this->session->display('modif_profil')
 ?>
 
 <form method="post" id='formUser'>
 
   <input type="hidden" id="varId" name="id" value="<?=htmlspecialchars($post->get('id_user'));?>">
-
+  <input type="hidden" id="varsub" name="submit" value="submit">
   <label for="pseudo">Pseudo</label></br>
   <input type="text" id="pseudo" name="pseudo" value="<?= isset($post) ? htmlspecialchars($post->get('pseudo')):"";?>"></br>
   <?=isset($errors['pseudo'])?$errors['pseudo']:'';?>
@@ -15,7 +16,7 @@ $submit = 'Mettre à jour';
   <input type="text" id="password" name="password" value="<?= isset($post) ? htmlspecialchars($post->get('password')):"";?>"></br>
   <?=isset($errors['password'])?$errors['password']:'';?>
 
-  <input type="submit" value="<?= $submit;?>" id="submitUser" name="submit">
+  <input type="submit" id="submitUser" name="submit" value="<?= $submit;?>" >
 </form>
 <div id="test"></div>
 

@@ -1,4 +1,4 @@
-var result = document.getElementById('test')
+var id = document.getElementById('varId').value;
 var getHttpRequest = function () {
   var httpRequest = false;
 
@@ -42,8 +42,9 @@ form.addEventListener('submit',function(e){
       }
     }
   }
-  xhr.open('POST', '/test.php', true)
+  xhr.open('POST', '/index.php?route=modifProfil&profilId='+id, true)
   var data = new FormData(form)
+  xhr.setRequestHeader('X-REQUESTED-WITH','xmlhttprequest');
   xhr.send(data)
 
 })

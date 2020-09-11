@@ -63,23 +63,30 @@ class backController extends Controller{
     if($post->get('submit')){
       $errors = $this->validation->validate($post,'utilisateur');
       if(!$errors){
-        $this->utilisateurDAO->modifProfil($post,$imgID,$file);
+        $this->utilisateurDAO->modifProfil($post,$idUser);
         $this->session->set('modif_profil','Le profil a été modifié !');
-        header('Location: ../index.php');
       }
-      return $this->view->rendu('modifProfil',[
-        'errors'=> $errors,
-        'post'=>$post
-      ]);
+      if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+      }
+      else{
+        return $this->view->rendu('modifProfil',[
+          'errors'=> $errors,
+          'post'=>$post
+        ]);
+      }
     }
 
     $post->set('id_user',$user->getId());
     $post->set('pseudo',$user->getPseudo());
     $post->set('password',$user->getPassword());
 
-    return $this->view->rendu('modifProfil',[
-      'post'=>$post
-    ]);
+    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+    }
+    else{
+      return $this->view->rendu('modifProfil',[
+        'post'=>$post
+      ]);
+    }
   }
 
 

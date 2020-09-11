@@ -66,7 +66,12 @@ class router{
           $this->frontController->portofolio();
         }
         elseif ($route==='modifProfil') {
-          $this->backController->modifProfil($this->request->getPost(),$this->request->getGet()->get('profilId'));
+          if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+            $this->backController->modifProfil($this->request->getPost(),$this->request->getGet()->get('profilId'));
+          }
+          else{
+            $this->backController->modifProfil($this->request->getPost(),$this->request->getGet()->get('profilId'));
+          }
         }
         else{
           $this->errorController->errorNotFound();
