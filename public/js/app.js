@@ -33,12 +33,37 @@ var test = document.getElementById('test');
 var form = document.querySelector('#formUser');
 
 form.addEventListener('submit',function(e){
+  var hasErrors = form.querySelectorAll('.has-errors')
+  for(var i = 0; i<hasErrors.length; i++){
+    hasErrors[i].classList.remove('has-errors')
+    var span = hasErrors[i].querySelector('.help-block')
+    if(span){
+      span.parentNode.removeChild(span)
+    }
+  }
+  var reussi = document.getElementById('test')
+  reussi.innerHTML = ''
   e.preventDefault();
   var xhr = getHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-          test.innerHTML = xhr.responseText
+      if (xhr.status != 200) {
+        var errors = JSON.parse(xhr.responseText)
+        var errorskey = Object.keys(errors)
+        for(var i = 0; i<errorskey.length; i++){
+          var key = errorskey[i]
+          var error = errors[key]
+          var champ = document.querySelector('[name='+ key+']')
+          var span = document.createElement('span')
+          span.className= 'help-block'
+          span.innerHTML = error
+          champ.parentNode.classList.add('has-errors')
+          champ.parentNode.appendChild(span)
+        }
+      }
+      if(xhr.status === 200){
+        var reussi = document.getElementById('test')
+        reussi.innerHTML = 'Le profil a été modifié !'
       }
     }
   }

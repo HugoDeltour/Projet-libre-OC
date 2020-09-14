@@ -66,13 +66,13 @@ class backController extends Controller{
         $this->utilisateurDAO->modifProfil($post,$idUser);
         $this->session->set('modif_profil','Le profil a été modifié !');
       }
-      if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
-      }
       else{
-        return $this->view->rendu('modifProfil',[
-          'errors'=> $errors,
-          'post'=>$post
-        ]);
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+          echo json_encode($errors);
+          header('Content-Type: application/json');
+          http_response_code(400);
+          die();
+        }
       }
     }
 
@@ -81,6 +81,7 @@ class backController extends Controller{
     $post->set('password',$user->getPassword());
 
     if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+
     }
     else{
       return $this->view->rendu('modifProfil',[
