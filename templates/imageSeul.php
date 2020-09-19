@@ -4,7 +4,7 @@ require('menu.php');
 <div id="MP-chap">
   <div id="element-central">
     <div id="image">
-      <img class="img-test" src="../Photos/<?=$req->getNom()?>">
+      <img class="img-test" src="../Photos/<?=$req->getCategorie()?>/<?=$req->getNom()?>">
     </div>
     </br>
     <div class="administration">

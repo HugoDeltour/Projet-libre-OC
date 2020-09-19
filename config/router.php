@@ -73,6 +73,12 @@ class router{
             $this->backController->modifProfil($this->request->getPost(),$this->request->getGet()->get('profilId'));
           }
         }
+        elseif ($route==='categorie') {
+          $this->frontController->categorie($this->request->getGet()->get('categorie'));
+        }
+        elseif ($route==='contact'){
+          $this->frontController->contact($this->request->getPost());
+        }
         else{
           $this->errorController->errorNotFound();
         }

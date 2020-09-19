@@ -29,8 +29,8 @@ class validationImage extends validation{
       $error=$this->checkTitre($name,$value);
       $this->addError($name,$error);
     }
-    elseif ($name==='nom_img_fichier') {
-      $error=$this->checkText($name,$value);
+    elseif ($name==='MAX_FILE_SIZE') {
+      $error=$this->checkName($name,$value);
       $this->addError($name,$error);
     }
     elseif ($name==='date_image') {
@@ -39,6 +39,14 @@ class validationImage extends validation{
     }
     elseif ($name==='lieu_image') {
       $error=$this->checkLieu($name,$value);
+      $this->addError($name,$error);
+    }
+    elseif($name==='categorie'){
+      $error=$this->checkCategorie($name,$value);
+      $this->addError($name,$error);
+    }
+    elseif($name==='alt'){
+      $error=$this->checkAlt($name,$value);
       $this->addError($name,$error);
     }
   }
@@ -61,12 +69,9 @@ class validationImage extends validation{
     }
   }
 
-  private function checkText($name,$value){
-    if($this->contrainte->nonVide($name,$value)){
-      return $this->contrainte->nonVide('text',$value);
-    }
-    if($this->contrainte->longMin($name,$value,10)){
-      return $this->contrainte->longMin('text',$value,10);
+  private function checkName($name,$value){
+    if ($value==='256M') {
+      return '<p>Fichier non sélectionné</p>';
     }
   }
 
@@ -86,6 +91,25 @@ class validationImage extends validation{
   }
 
   private function checkLieu($name,$value){
+    if($this->contrainte->nonVide($name,$value)){
+      return $this->contrainte->nonVide('lieu',$value);
+    }
+    if($this->contrainte->longMin($name,$value,2)){
+      return $this->contrainte->longMin('lieu',$value,2);
+    }
+    if($this->contrainte->longMax($name,$value,255)){
+      return $this->contrainte->longMax('lieu',$value,255);
+    }
+  }
+
+  private function checkCategorie($name,$value){
+    if($value === 'Veuillez selectionner une option'){
+      $value = '<p>Veuillez sélectionner une catégorie valide !</p>';
+      return $value;
+    }
+  }
+
+  private function checkAlt($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('lieu',$value);
     }

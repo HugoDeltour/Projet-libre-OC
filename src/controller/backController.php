@@ -13,7 +13,7 @@ class backController extends Controller{
       if(!$errors){
         $file=$this->upload($post->get('categorie'));
         $this->imageDAO->ajoutimage($post,$file);
-        $this->session->set('ajout_image','L\'image a été ajouté !');
+        $this->session->set('notification','L\'image a été ajouté !');
       }
       return $this->view->rendu('ajout_image',[
         'post'=>$post,
@@ -34,7 +34,7 @@ class backController extends Controller{
       if(!$errors){
         $file=$this->upload($post->get('categorie'));
         $this->imageDAO->modifimage($post,$imgID,$file);
-        $this->session->set('modif_image','L\'image a été modifiée !');
+        $this->session->set('notification','L\'image a été modifiée !');
         header('Location: ../index.php');
       }
       return $this->view->rendu('modif_image',[
@@ -64,7 +64,6 @@ class backController extends Controller{
       $errors = $this->validation->validate($post,'utilisateur');
       if(!$errors){
         $this->utilisateurDAO->modifProfil($post,$idUser);
-        $this->session->set('modif_profil','Le profil a été modifié !');
       }
       else{
         if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
@@ -93,14 +92,14 @@ class backController extends Controller{
 
   public function supprimerImage($ImgID){
     $this->imageDAO->supprimerimage($ImgID);
-    $this->session->set('supprimer_image','L\'image a été supprimé');
+    $this->session->set('notification','L\'image a été supprimé');
     header('Location:../index.php');
   }
 
   public function deconnexion(){
     $this->session->arret();
     $this->session->depart();
-    $this->session->set('deconnexion','Au revoir');
+    $this->session->set('notification','Au revoir');
     header('Location:../index.php');
   }
 
@@ -113,13 +112,13 @@ class backController extends Controller{
 
   public function supprimerCommentaire($comID){
     $this->commentDAO->supprimerCommentaire($comID);
-    $this->session->set('supprimer_commentaire','Le commentaire a été supprimé');
+    $this->session->set('notification','Le commentaire a été supprimé');
     header('Location:../index.php');
   }
 
   public function nonSignalCommentaire($comID){
     $this->commentDAO->nonSignalCommentaire($comID);
-    $this->session->set('signalCommentaire','Le commentaire a été enlever des commentaires signalés');
+    $this->session->set('notification','Le commentaire a été enlever des commentaires signalés');
     header('Location:../index.php');
   }
 

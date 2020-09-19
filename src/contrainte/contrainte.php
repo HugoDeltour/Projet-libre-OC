@@ -10,7 +10,13 @@ class contrainte{
 
   public function nonVide($name,$value){
     if(empty($value)){
-      return '<p>Le champ '.$name.' est vide</p>';
+      if($name === 'password'){
+        return '<p>Le champ mot de passe est vide</p>';
+      }
+      else{
+        return '<p>Le champ '.$name.' est vide</p>';
+      }
+
     }
   }
 

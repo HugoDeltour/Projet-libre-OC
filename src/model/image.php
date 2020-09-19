@@ -7,6 +7,8 @@
     private $nom_img_fichier;
     private $date_image;
     private $lieu_image;
+    private $categorie;
+    private $alt;
 
     public function getId(){
       return $this->id_image;
@@ -58,6 +60,15 @@
     }
 
     public function setCategorie($categorie_image)
+    {
+        $this->categorie_image = $categorie_image;
+    }
+
+    public function getAlt(){
+      return $this->categorie_image;
+    }
+
+    public function setAlt($categorie_image)
     {
         $this->categorie_image = $categorie_image;
     }

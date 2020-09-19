@@ -1,32 +1,38 @@
-<?php $this->title="Accueil";?>
-<?php
+<?php $this->title="Accueil";
   require('menu.php');
 ?>
 <div id="MP-img">
-  <div id="notification">
-    <?= $this->session->display('ajout_img');?>
-    <?= $this->session->display('modif_img');?>
-    <?= $this->session->display('supprimer_img');?>
-    <?= $this->session->display('ajout_commentaire');?>
-    <?= $this->session->display('signaler_commentaire');?>
-    <?= $this->session->display('inscription');?>
-    <?= $this->session->display('connexion');?>
-    <?= $this->session->display('deconnexion');?>
-    <?= $this->session->display('supprimer_commentaire');?>
-    <?= $this->session->display('signalCommentaire')?>
-  </div>
+  <?php
+  if(!empty($this->session->get('notification'))){
+    ?>
+    <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert">
+       <h5 class="alert-heading">
+      <?= $this->session->display('notification');?>
+      </h5>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <?php
+  } ?>
   <div id="image">
-      <?php
-          foreach($req as $donnees){
-              ?>
-              <Div id="chap_img">
-                <h1><a href="../index.php?route=image&imgID=<?=htmlspecialchars($donnees->getId());?>"><?php echo $donnees->getTitre();?></a></h1>
-                <p><?=$donnees->getDate();?></p>
-                <p><?=htmlspecialchars($donnees->getLieu());?></p>
-                <img class="img-test" src="../Photos/<?=$donnees->getCategorie()?>/<?=$donnees->getNom(); ?>">
-              </div></br>
-              <?php
-          };
-      ?>
+    <div class="carousel slide" id="carouselControls" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="../Photos/Mariage/DSC_0151.JPG" class="d-block w-50" alt="DSC_0151.JPG">
+        </div>
+        <div class="carousel-item ">
+          <img src="../Photos/Mariage/GY8Rg8f.png" class="d-block w-50" alt="GY8Rg8f.png">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev" >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Précédent</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Suivant</span>
+      </a>
+    </div>
   </div>
 </div>

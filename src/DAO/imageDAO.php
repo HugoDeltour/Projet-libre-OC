@@ -20,11 +20,12 @@ class imageDAO extends DAO{
 		$image->setDate($row['date_image']);
 		$image->setLieu($row['lieu_image']);
 		$image->setCategorie($row['categorie']);
+		$image->setAlt($row['alter_img']);
 		return $image;
 	}
 
 	public function getImages(){
-		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie FROM image';
+		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image';
 		$result = $this->createQuery($sql);
 		$img=[];
 		foreach ($result as $row) {
@@ -36,7 +37,7 @@ class imageDAO extends DAO{
 	}
 
 	public function getImage($imgID){
-		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie FROM image WHERE id_image = ?';
+		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image WHERE id_image = ?';
 		$result= $this->createQuery($sql,[$imgID]);
 		$img = $result->fetch();
 		$result->closeCursor();
@@ -44,18 +45,19 @@ class imageDAO extends DAO{
 	}
 
 	public function ajoutImage(parametre $img,$file){
-		$sql = 'INSERT INTO image (titre_image, nom_img_fichier, date_image, lieu_image, categorie) VALUES(?,?,?,?,?)';
-		$this->createQuery($sql, [$img->get('titre_image'),$file,$img->get('date_image'),$img->get('lieu_image'),$img->get('categorie')]);
+		$sql = 'INSERT INTO image (titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img) VALUES(?,?,?,?,?)';
+		$this->createQuery($sql, [$img->get('titre_image'),$file,$img->get('date_image'),$img->get('lieu_image'),$img->get('categorie'),$img->get('alt')]);
 	}
 
 	public function modifImage(parametre $post, $imgID,$file){
-		$sql = 'UPDATE image SET titre_image=:titre, nom_img_fichier=:nom, date_image=:dateImg, lieu_image=:lieu, categorie=:categorie WHERE id_image =:imgID ';
+		$sql = 'UPDATE image SET titre_image=:titre, nom_img_fichier=:nom, date_image=:dateImg, lieu_image=:lieu, categorie=:categorie, alter_img=:alt WHERE id_image =:imgID ';
 		$this->createQuery($sql,[
 			'titre'=> $post->get('titre_image'),
 			'nom'=> $file,
 			'dateImg'=> $post->get('date_image'),
 			'lieu'=> $post->get('lieu_image'),
 			'categorie'=>$post->get('categorie'),
+			'alt'=>$post->get('alt'),
 			'imgID'=> $imgID
 		]);
 	}
@@ -67,9 +69,16 @@ class imageDAO extends DAO{
 		$this->createQuery($sql,[$imgID]);
 	}
 
-	public function getMariage(){
-		$sql ='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image FROM image WHERE categorie=?';
-		$this->createQuery($sql,[mariage]);
+	public function getCategorie($categorie){
+		$sql ='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image WHERE categorie=?';
+		$result = $this->createQuery($sql,[$categorie]);
+		$img=[];
+		foreach ($result as $row) {
+			$id_img = $row['id_image'];
+			$img[$id_img]=$this->buildObjectImage($row);
+		}
+		$result->closeCursor();
+		return $img;
 	}
 
 }

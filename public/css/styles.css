@@ -1,3 +1,16 @@
+body{
+  background-color:gray;
+}
+
 img{
-  width:400px;
+  margin: 5% 25% 5% 25%;
+  width: 400px;
+}
+
+.has-error input{
+  border: solid 3px red;
+}
+
+a{
+  color: white;
 }
