@@ -56,21 +56,21 @@
     }
 
     public function getCategorie(){
-      return $this->categorie_image;
+      return $this->categorie;
     }
 
-    public function setCategorie($categorie_image)
+    public function setCategorie($categorie)
     {
-        $this->categorie_image = $categorie_image;
+        $this->categorie = $categorie;
     }
 
     public function getAlt(){
-      return $this->categorie_image;
+      return $this->alt;
     }
 
-    public function setAlt($categorie_image)
+    public function setAlt($alt)
     {
-        $this->categorie_image = $categorie_image;
+        $this->alt = $alt;
     }
 
 

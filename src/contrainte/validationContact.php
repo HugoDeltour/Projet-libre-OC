@@ -4,12 +4,12 @@ namespace App\src\contrainte;
 use App\config\parametre;
 
 /**
- * class validationUtilisateur
+ * class validationContact
  * @packages App\config\parametre
- * class permettant la validation de certaine contrainte concernant le pseudo et le mot de passe de l'utilisateur
+ * class permettant la validation de certaine contrainte concernant le pseudo, le mail et le message que souhaite envoyer l'utilisateur
  */
 
-class validationUtilisateur extends validation{
+class validationContact extends validation{
 
   private $errors=[];
   private $contrainte;
@@ -30,8 +30,13 @@ class validationUtilisateur extends validation{
       $error=$this->checkPseudo($name,$value);
       $this->addError($name,$error);
     }
-    elseif ($name==='password'){
-      $error=$this->checkPassword($name,$value);
+    elseif ($name==='email'){
+
+      $error=$this->checkMail($name,$value);
+      $this->addError($name,$error);
+    }
+    elseif ($name==='message'){
+      $error=$this->checkMessage($name,$value);
       $this->addError($name,$error);
     }
   }
@@ -54,15 +59,27 @@ class validationUtilisateur extends validation{
     }
   }
 
-  private function checkPassword($name,$value){
+  private function checkMail($name,$value){
     if($this->contrainte->nonVide($name,$value)){
-      return $this->contrainte->nonVide('password',$value);
+      return $this->contrainte->nonVide('E-mail',$value);
     }
     if($this->contrainte->longMin($name,$value,2)){
-      return $this->contrainte->longMin('password',$value,2);
+      return $this->contrainte->longMin('E-mail',$value,2);
     }
     if($this->contrainte->longMax($name,$value,255)){
-      return $this->contrainte->longMax('password',$value,255);
+      return $this->contrainte->longMax('E-mail',$value,255);
+    }
+  }
+
+  private function checkMessage($name,$value){
+    if($this->contrainte->nonVide($name,$value)){
+      return $this->contrainte->nonVide('message',$value);
+    }
+    if($this->contrainte->longMin($name,$value,2)){
+      return $this->contrainte->longMin('message',$value,2);
+    }
+    if($this->contrainte->longMax($name,$value,255)){
+      return $this->contrainte->longMax('message',$value,255);
     }
   }
 

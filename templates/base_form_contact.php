@@ -1,21 +1,22 @@
-<?php
-$route = 'modifProfil&profilId='.$post->get('id_user') ;
-$submit = 'Mettre à jour';
-?>
-  <form method="post" id='formContact'>
+<form method="post" action="./index.php?route=contact">
 
-    <div id="Pseudo">
-      <label for="pseudo">Pseudo</label></br>
-      <input type="text" id="pseudo" name="pseudo" value="<?= isset($post) ? htmlspecialchars($post->get('pseudo')):"";?>"></br>
-    </div>
+  <div id="Pseudo">
+    <label for="pseudo">Pseudo</label></br>
+    <input type="text" id="pseudo" name="pseudo" value="<?= isset($post) ? htmlspecialchars($post->get('pseudo')):"";?>">
+    <?= isset($errors['pseudo']) ? $errors['pseudo']:'';?>
+  </div>
 
-    <div id="Message">
-      <label for="message">Message</label></br>
-      <textarea id="alt" name="alt" value="<?= isset($post) ? htmlspecialchars($post->get('alt')):""; ?>"></textarea>
-    </div>
+  <div id="E-mail">
+    <label for="email">E-mail</label></br>
+    <input type="email" name="email" id="email" value="<?= isset($post) ? htmlspecialchars($post->get('email')):"";?>">
+    <?= isset($errors['email']) ? $errors['email']:'';?>
+  </div>
 
-    <input type="submit" id="submitUser" name="submit" value="<?= $submit;?>" >
-  </form>
-<div id="resultat"></div>
+  <div id="Message">
+    <label for="message">Message</label></br>
+    <textarea id="message" name="message" value="<?= isset($post) ? htmlspecialchars($post->get('message')):""; ?>"></textarea>
+    <?= isset($errors['message']) ? $errors['message']:'';?>
+  </div></br>
 
-<script src="../js/app.js"></script>
+  <input type="submit" id="submit" name="submit" value="Envoyer" >
+</form>

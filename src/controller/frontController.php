@@ -14,7 +14,7 @@ use App\config\parametre;
 class frontController extends Controller{
 
   public function home(){
-    $req = $this->imageDAO->getImages();
+    $req = $this->imageDAO->getCarousel();
     return $this->view->rendu('affichageAccueil',[
       'req'=>$req
     ]);
@@ -70,7 +70,9 @@ class frontController extends Controller{
         'errors'=>$errors
       ]);
     }
-    return $this->view->rendu('inscription',[]);
+    return $this->view->rendu('inscription',[
+      'post'=>$post
+    ]);
   }
 
   public function connexion(parametre $post){
@@ -113,6 +115,23 @@ class frontController extends Controller{
   }
 
   public function contact(parametre $post){
+    if($post->get('submit')){
+      $result=$this->utilisateurDAO->connexion($post);
+      $errors=$this->validation->validate($post,'contact');
+      if(!$errors){
+        $this->session->set('notification','Bienvenue');
+        $this->session->set('id',$result['result']['id_user']);
+        $this->session->set('role',$result['result']['nom_role']);
+        $this->session->set('pseudo',$post->get('pseudo'));
+        header('Location:../index.php');
+      }
+      else {
+        return $this->view->rendu('contact',[
+          'post'=>$post,
+          'errors'=>$errors
+        ]);
+      }
+    }
     return $this->view->rendu('contact',[
       'post'=>$post
     ]);

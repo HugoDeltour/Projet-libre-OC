@@ -1,28 +1,48 @@
 <?php $this->title="Accueil";
   require('menu.php');
 ?>
-<div id="MP-img">
+<?php
+if(!empty($this->session->get('notification'))){
+  ?>
+  <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert">
+     <h5 class="alert-heading">
+    <?= $this->session->display('notification');?>
+    </h5>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
   <?php
-  if(!empty($this->session->get('notification'))){
-    ?>
-    <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert">
-       <h5 class="alert-heading">
-      <?= $this->session->display('notification');?>
-      </h5>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">×</span>
-      </button>
-    </div>
-    <?php
-  } ?>
+} ?>
+<?php
+if(!empty($this->session->get('echec'))){
+  ?>
+    <div id="notification" class="alert alert-danger alert-dismissible fade show" role="alert">
+     <h5 class="alert-heading">
+    <?= $this->session->display('echec');?>
+    </h5>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <?php
+}
+ ?>
+<div id="MP-img">
+
+
   <div id="image">
     <div class="carousel slide" id="carouselControls" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="../Photos/Mariage/DSC_0151.JPG" class="d-block w-50" alt="DSC_0151.JPG">
+          <p class="image">
+            <img src="../Photos/<?=$req[1]->getCategorie()?>/<?=$req[1]->getNom()?>" class="d-block w-50" alt="<?=$req[1]->getAlt()?>">
+          </p>
         </div>
         <div class="carousel-item ">
-          <img src="../Photos/Mariage/GY8Rg8f.png" class="d-block w-50" alt="GY8Rg8f.png">
+          <p class="image">
+            <img src="../Photos/<?=$req[0]->getCategorie()?>/<?=$req[0]->getNom()?>" class="d-block w-50" alt="<?=$req[1]->getAlt()?>">
+          </p>
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev" >

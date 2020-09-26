@@ -27,16 +27,36 @@ class router{
           $this->frontController->imgSeul($this->request->getGet()->get('imgID'));
         }
         elseif ($route==='administration') {
-          $this->backController->administration();
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+            $this->backController->administration();
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
         }
         elseif ($route==='ajoutImage') {
-          $this->backController->ajoutImage($this->request->getPost());
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+            $this->backController->ajoutImage($this->request->getPost());
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
         }
         elseif ($route==='modifImage') {
-          $this->backController->modifImage($this->request->getPost(),$this->request->getGet()->get('imgID'));
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+            $this->backController->modifImage($this->request->getPost(),$this->request->getGet()->get('imgID'));
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
         }
         elseif ($route==='supprimerImage') {
-          $this->backController->supprimerImage($this->request->getGet()->get('imgID'));
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+            $this->backController->supprimerImage($this->request->getGet()->get('imgID'));
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
         }
         elseif ($route==='ajoutCommentaire') {
           $this->frontController->ajoutCommentaire($this->request->getPost(),$this->request->getGet()->get('imgID'));
@@ -54,13 +74,28 @@ class router{
           $this->backController->deconnexion();
         }
         elseif ($route==='commentairesSignales') {
-          $this->frontController->commentairesSignales();
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+            $this->frontController->commentairesSignales();
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
         }
         elseif ($route==='supprimerCommentaire') {
-          $this->backController->supprimerCommentaire($this->request->getGet()->get('comID'));
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+            $this->backController->supprimerCommentaire($this->request->getGet()->get('comID'));
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
         }
         elseif ($route==='nonSignalCommentaire') {
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
           $this->backController->nonSignalCommentaire($this->request->getGet()->get('comID'));
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
         }
         elseif ($route==='portofolio') {
           $this->frontController->portofolio();
@@ -78,6 +113,14 @@ class router{
         }
         elseif ($route==='contact'){
           $this->frontController->contact($this->request->getPost());
+        }
+        elseif ($route==='modifCarrousel') {
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+          $this->backController->modifCarrousel($this->request->getpost());
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
         }
         else{
           $this->errorController->errorNotFound();

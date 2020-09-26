@@ -23,6 +23,11 @@ class validation{
       $errors = $validationUtilisateur->check($data);
       return $errors;
     }
+    elseif ($name==='contact') {
+      $validationContact = new validationContact();
+      $errors = $validationContact->check($data);
+      return $errors;
+    }
   }
 
 }

@@ -7,7 +7,6 @@ use App\config\parametre;
 class backController extends Controller{
 
   public function ajoutImage(parametre $post){
-    $reqImg = $this->imageDAO->getimages();
     if($post->get('submit')){
       $errors = $this->validation->validate($post,'image');
       if(!$errors){
@@ -17,13 +16,11 @@ class backController extends Controller{
       }
       return $this->view->rendu('ajout_image',[
         'post'=>$post,
-        'reqImg'=>$reqImg,
         'errors'=>$errors
       ]);
     }
     return $this->view->rendu('ajout_image',[
       'post'=>$post,
-      'reqImg'=>$reqImg
     ]);
   }
 
@@ -37,7 +34,7 @@ class backController extends Controller{
         $this->session->set('notification','L\'image a été modifiée !');
         header('Location: ../index.php');
       }
-      return $this->view->rendu('modif_image',[
+      return $this->view->rendu('modifImage',[
         'image'=>$image,
         'errors'=> $errors,
         'post'=>$post
@@ -51,9 +48,32 @@ class backController extends Controller{
     $post->set('lieu',$image->getLieu());
     $post->set('categorie',$image->getCategorie());
 
-    return $this->view->rendu('modif_image',[
+    return $this->view->rendu('modifImage',[
       'image'=>$image,
-      'reqImg'=>$reqImg,
+      'post'=>$post
+    ]);
+  }
+
+
+  public function modifCarrousel(parametre $post){
+    $image = $this->imageDAO->getImages();
+    if($post->get('submit')){
+      $errors = $this->validation->validate($post,'image');
+      if(!$errors){
+        $file=$this->upload('carousel');
+        $this->imageDAO->modifimage($post,$imgID,$file);
+        $this->session->set('notification','Le carrousel a été modifié !');
+        header('Location: ../index.php');
+      }
+      return $this->view->rendu('modifCarrousel',[
+        'image'=>$image,
+        'errors'=> $errors,
+        'post'=>$post
+      ]);
+    }
+
+    return $this->view->rendu('modifCarrousel',[
+      'image'=>$image,
       'post'=>$post
     ]);
   }
@@ -104,10 +124,7 @@ class backController extends Controller{
   }
 
   public function administration(){
-    $reqImg = $this->imageDAO->getimages();
-    return $this->view->rendu('administration',[
-      'reqImg'=>$reqImg
-    ]);
+    return $this->view->rendu('administration',[]);
   }
 
   public function supprimerCommentaire($comID){

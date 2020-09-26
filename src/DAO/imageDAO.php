@@ -81,5 +81,18 @@ class imageDAO extends DAO{
 		return $img;
 	}
 
+	public function getCarousel(){
+		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image WHERE categorie=?';
+		$result = $this->createQuery($sql,['carrousel']);
+		$img=[];
+		$idImg=0;
+		foreach ($result as $row) {
+			$img[$idImg]=$this->buildObjectImage($row);
+			$idImg++;
+		}
+		$result->closeCursor();
+		return $img;
+	}
+
 }
 ?>

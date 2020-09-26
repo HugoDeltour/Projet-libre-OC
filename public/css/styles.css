@@ -14,3 +14,30 @@ img{
 a{
   color: white;
 }
+
+#MP-img{
+  margin-top:20px;
+}
+
+.image{
+  height: 600px;
+}
+
+#Message,#description{
+  margin:auto;
+  width:350px;
+}
+
+form p{
+  color:orange;
+  width:350px;
+  margin:auto;
+}
+
+#logo{
+  width:100px;
+}
+
+nav div{
+  margin-left:1%;
+}

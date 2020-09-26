@@ -1,6 +1,6 @@
 <div id="menu">
     <nav class="col navbar navbar-expand-lg bg-dark navbar-dark">
-      <a class="navbar-brand" href="./index.php">Logo</a>
+      <a class="navbar-brand" href="./index.php"><img src="../Photos/logo/logo.png" id="logo" alt="logo"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
         <span class="navbar-toggler-icon"></span>
       </button>
