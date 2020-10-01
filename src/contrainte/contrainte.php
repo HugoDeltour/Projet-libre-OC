@@ -13,22 +13,49 @@ class contrainte{
       if($name === 'password'){
         return '<p>Le champ mot de passe est vide</p>';
       }
+      elseif($name==='nvPassword'){
+        return '<p>Le champ nouveau mot de passe est vide</p>';
+      }
+      elseif($name==='nvPassword2'){
+        return '<p>Le champ confirmation mot de passe est vide</p>';
+      }
       else{
         return '<p>Le champ '.$name.' est vide</p>';
       }
-
     }
   }
 
   public function longMin($name, $value, $minLenght){
     if(strlen($value)<$minLenght){
-      return '<p>Le champ '.$name.' doit contenir au moins '.$minLenght.' caractères</p>';
+      if($name === 'password'){
+        return '<p>Le champ mot de passe doit contenir au moins '.$minLenght.' caractères</p>';
+      }
+      elseif($name==='nvPassword'){
+        return '<p>Le champ nouveau mot de passe doit contenir au moins '.$minLenght.' caractères</p>';
+      }
+      elseif($name==='nvPassword2'){
+        return '<p>Le champ confirmation mot de passe doit contenir au moins '.$minLenght.' caractères</p>';
+      }
+      else{
+        return '<p>Le champ '.$name.' doit contenir au moins '.$minLenght.' caractères</p>';
+      }
     }
   }
 
   public function longMax($name, $value, $maxLenght){
     if(strlen($value)>$maxLenght){
-      return '<p>Le champ '.$name.' doit contenir moins de '.$maxLenght.' caractères</p>';
+      if($name === 'password'){
+        return '<p>Le champ mot de passe doit contenir au moins '.$maxLenght.' caractères</p>';
+      }
+      elseif($name==='nvPassword'){
+        return '<p>Le champ nouveau mot de passe doit contenir au moins '.$maxLenght.' caractères</p>';
+      }
+      elseif($name==='nvPassword2'){
+        return '<p>Le champ confirmation mot de passe doit contenir au moins '.$maxLenght.' caractères</p>';
+      }
+      else{
+        return '<p>Le champ '.$name.' doit contenir au moins '.$maxLenght.' caractères</p>';
+      }
     }
   }
 

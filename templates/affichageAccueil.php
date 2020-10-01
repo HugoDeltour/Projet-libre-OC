@@ -1,7 +1,6 @@
 <?php $this->title="Accueil";
   require('menu.php');
-?>
-<?php
+?><?php
 if(!empty($this->session->get('notification'))){
   ?>
   <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -28,8 +27,8 @@ if(!empty($this->session->get('echec'))){
   <?php
 }
  ?>
-<div id="MP-img">
 
+<div id="MP-img">
 
   <div id="image">
     <div class="carousel slide" id="carouselControls" data-ride="carousel">

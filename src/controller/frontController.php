@@ -14,7 +14,7 @@ use App\config\parametre;
 class frontController extends Controller{
 
   public function home(){
-    $req = $this->imageDAO->getCarousel();
+    $req = $this->imageDAO->getCarrousel();
     return $this->view->rendu('affichageAccueil',[
       'req'=>$req
     ]);

@@ -116,7 +116,23 @@ class router{
         }
         elseif ($route==='modifCarrousel') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-          $this->backController->modifCarrousel($this->request->getpost());
+            $this->backController->modifCarrousel($this->request->getpost());
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
+        }
+        elseif ($route==='ajoutCarrousel') {
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+            $this->backController->ajoutCarrousel($this->request->getpost());
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
+        }
+        elseif ($route==='modifPassword') {
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+            $this->backController->modifPassword($this->request->getpost());
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');

@@ -5,9 +5,9 @@ require('menu.php');
   <div id="espace-administration">
     <h1>Administration</h1>
     <div id="lien-admin">
-      <a href="./index.php?route=ajoutImage">Ajout image</a></br>
-      <a href="./index.php?route=commentairesSignales">Commentaires signalés</a></br>
-      <a href="./index.php?route=modifCarrousel">Modifier le carrousel</a></br>
+      <a href="./index.php?route=ajoutImage" class="btn btn-info">Ajout image</a></br>
+      <a href="./index.php?route=commentairesSignales" class="btn btn-info">Commentaires signalés</a></br>
+      <a href="./index.php?route=modifCarrousel" class="btn btn-info">Modifier le carrousel</a></br>
     </div>
   </diV>
 </div>

@@ -11,8 +11,7 @@ $submit = 'Mettre à jour';
     </div>
 
     <div id="submitPassword">
-      <label for="password">Mot de passe</label></br>
-      <input type="text" id="password" name="password" value="<?= isset($post) ? htmlspecialchars($post->get('password')):"";?>"></br>
+      <a href="/index.php?route=modifPassword">Modifier mon mot de passe</a>
     </div>
 
     <input type="submit" id="submitUser" name="submit" value="<?= $submit;?>" >

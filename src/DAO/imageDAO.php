@@ -81,7 +81,7 @@ class imageDAO extends DAO{
 		return $img;
 	}
 
-	public function getCarousel(){
+	public function getCarrousel(){
 		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image WHERE categorie=?';
 		$result = $this->createQuery($sql,['carrousel']);
 		$img=[];
@@ -92,6 +92,14 @@ class imageDAO extends DAO{
 		}
 		$result->closeCursor();
 		return $img;
+	}
+
+	public function compteCarrousel(){
+		$sql='SELECT COUNT(*) FROM image WHERE categorie=\'carrousel\'';
+		$result = $this->createQuery($sql);
+		$compte = $result->fetchColumn();
+		$result->closeCursor();
+		return $compte;
 	}
 
 }

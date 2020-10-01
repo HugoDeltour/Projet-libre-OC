@@ -34,6 +34,14 @@ class validationUtilisateur extends validation{
       $error=$this->checkPassword($name,$value);
       $this->addError($name,$error);
     }
+    elseif ($name==='nvPassword'){
+      $error=$this->checkPassword($name,$value);
+      $this->addError($name,$error);
+    }
+    elseif ($name==='nvPassword2'){
+      $error=$this->checkPassword($name,$value);
+      $this->addError($name,$error);
+    }
   }
 
   private function addError($name,$error){
@@ -56,13 +64,13 @@ class validationUtilisateur extends validation{
 
   private function checkPassword($name,$value){
     if($this->contrainte->nonVide($name,$value)){
-      return $this->contrainte->nonVide('password',$value);
+      return $this->contrainte->nonVide($name,$value);
     }
     if($this->contrainte->longMin($name,$value,2)){
-      return $this->contrainte->longMin('password',$value,2);
+      return $this->contrainte->longMin($name,$value,2);
     }
     if($this->contrainte->longMax($name,$value,255)){
-      return $this->contrainte->longMax('password',$value,255);
+      return $this->contrainte->longMax($name,$value,255);
     }
   }
 

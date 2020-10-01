@@ -38,6 +38,7 @@ $submit = $route === 'ajoutImage' ? 'Envoyer' : 'Mettre à jour';
       <option>Grossesse</option>
       <option>Portrait</option>
       <option>Entreprise</option>
+      <option>Carrousel</option>
     </select>
     <?=isset($errors['categorie'])?$errors['categorie']:'';?>
   </div></br>

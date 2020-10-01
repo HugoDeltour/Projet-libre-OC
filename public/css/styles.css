@@ -3,7 +3,7 @@ body{
 }
 
 img{
-  margin: 5% 25% 5% 25%;
+  margin: auto;
   width: 400px;
 }
 
@@ -15,15 +15,15 @@ a{
   color: white;
 }
 
-#MP-img{
-  margin-top:20px;
+#image{
+    margin-top:3%;
 }
 
 .image{
   height: 600px;
 }
 
-#Message,#description{
+#Message,#description,#commentaire{
   margin:auto;
   width:350px;
 }
@@ -40,4 +40,37 @@ form p{
 
 nav div{
   margin-left:1%;
+}
+
+.row{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.navbar{
+  padding:0;
+}
+
+.card{
+  padding: 0;
+  border:0;
+  margin: 15px;
+}
+
+.card-title{
+  margin-top:25%;
+}
+
+.card-title a{
+  color:orange;
+  font-size: 30px;
+}
+
+.card-img{
+  margin:0;
+}
+
+#submitPassword{
+  color:blue;
+  margin:10px 0 50px 0;
 }

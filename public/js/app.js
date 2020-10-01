@@ -28,8 +28,6 @@ var getHttpRequest = function () {
   return httpRequest
 }
 
-var test = document.getElementById('test');
-
 var form = document.querySelector('#formUser');
 
 form.addEventListener('submit',function(e){

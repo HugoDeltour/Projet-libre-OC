@@ -24,6 +24,25 @@ class backController extends Controller{
     ]);
   }
 
+  public function ajoutCarrousel(parametre $post){
+    if($post->get('submit')){
+      $errors = $this->validation->validate($post,'image');
+      if(!$errors){
+        $file=$this->upload('carrousel');
+        $this->imageDAO->ajoutimage($post,$file);
+        $this->session->set('notification','L\'image a été ajouté au carrousel !');
+      }
+      return $this->view->rendu('ajout_carrousel',[
+        'post'=>$post,
+        'errors'=>$errors
+      ]);
+    }
+    return $this->view->rendu('ajout_carrousel',[
+      'post'=>$post,
+    ]);
+  }
+
+
   public function modifImage(parametre $post, $imgID){
     $image = $this->imageDAO->getimage($imgID);
     if($post->get('submit')){
@@ -56,7 +75,8 @@ class backController extends Controller{
 
 
   public function modifCarrousel(parametre $post){
-    $image = $this->imageDAO->getImages();
+    $image = $this->imageDAO->getCarrousel();
+    $compte = $this->imageDAO->compteCarrousel();
     if($post->get('submit')){
       $errors = $this->validation->validate($post,'image');
       if(!$errors){
@@ -66,6 +86,7 @@ class backController extends Controller{
         header('Location: ../index.php');
       }
       return $this->view->rendu('modifCarrousel',[
+        'compte'=>$compte,
         'image'=>$image,
         'errors'=> $errors,
         'post'=>$post
@@ -73,6 +94,7 @@ class backController extends Controller{
     }
 
     return $this->view->rendu('modifCarrousel',[
+      'compte'=>$compte,
       'image'=>$image,
       'post'=>$post
     ]);
@@ -137,6 +159,25 @@ class backController extends Controller{
     $this->commentDAO->nonSignalCommentaire($comID);
     $this->session->set('notification','Le commentaire a été enlever des commentaires signalés');
     header('Location:../index.php');
+  }
+
+  public function modifPassword($post){
+    if($post->get('submit')){
+      $result=$this->utilisateurDAO->connexion($post);
+      $errors=$this->validation->validate($post,'utilisateur');
+      if($result && $result['isPasswordOK']){
+
+      }
+      else {
+        return $this->view->rendu('modifPassword',[
+          'post'=>$post,
+          'errors'=>$errors
+        ]);
+      }
+    }
+    return $this->view->rendu('modifPassword',[
+      'post'=>$post
+    ]);
   }
 
   public function upload($categorie){
