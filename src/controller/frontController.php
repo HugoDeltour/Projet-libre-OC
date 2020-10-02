@@ -118,11 +118,10 @@ class frontController extends Controller{
     if($post->get('submit')){
       $result=$this->utilisateurDAO->connexion($post);
       $errors=$this->validation->validate($post,'contact');
+      var_dump($post);
       if(!$errors){
-        $this->session->set('notification','Bienvenue');
-        $this->session->set('id',$result['result']['id_user']);
-        $this->session->set('role',$result['result']['nom_role']);
-        $this->session->set('pseudo',$post->get('pseudo'));
+        mail('libre@dixideo.fr',$post->get('sujet'),htmlspecialchars($post->get('message')),'From:'.$post->get('email'));
+        $this->session->set('notification','E-mail envoyé');
         header('Location:../index.php');
       }
       else {

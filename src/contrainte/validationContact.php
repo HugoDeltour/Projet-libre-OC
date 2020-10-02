@@ -39,6 +39,10 @@ class validationContact extends validation{
       $error=$this->checkMessage($name,$value);
       $this->addError($name,$error);
     }
+    elseif ($name==='sujet'){
+      $error=$this->checkSujet($name,$value);
+      $this->addError($name,$error);
+    }
   }
 
   private function addError($name,$error){
@@ -80,6 +84,18 @@ class validationContact extends validation{
     }
     if($this->contrainte->longMax($name,$value,255)){
       return $this->contrainte->longMax('message',$value,255);
+    }
+  }
+
+  private function checkSujet($name,$value){
+    if($this->contrainte->nonVide($name,$value)){
+      return $this->contrainte->nonVide('sujet',$value);
+    }
+    if($this->contrainte->longMin($name,$value,2)){
+      return $this->contrainte->longMin('sujet',$value,2);
+    }
+    if($this->contrainte->longMax($name,$value,255)){
+      return $this->contrainte->longMax('sujet',$value,255);
     }
   }
 

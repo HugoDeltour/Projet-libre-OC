@@ -51,14 +51,29 @@ class utilisateurDAO extends DAO{
 		return $this->buildObjectUser($user);
   }
 
-  public function modifProfil(parametre $post, $idUser){
-		$sql = 'UPDATE user SET pseudo=:pseudo,password=:password WHERE id_user =:user_id ';
+  public function modifPseudo(parametre $post, $idUser){
+		$sql = 'UPDATE user SET pseudo=:pseudo WHERE id_user =:user_id ';
     $this->createQuery($sql,[
       'pseudo'=>$post->get('pseudo'),
-      'password'=>password_hash($post->get('password'),PASSWORD_BCRYPT),
       'user_id'=>$idUser
     ]);
 	}
+
+  public function modifPassword(parametre $post, $idUser){
+    $sql = 'UPDATE user SET password=:password WHERE id_user =:user_id ';
+    $this->createQuery($sql,[
+      'password'=>password_hash($post->get('nvPassword'),PASSWORD_BCRYPT),
+      'user_id'=>$idUser
+    ]);
+  }
+
+  public function getPassword(parametre $post, $idUser){
+    $sql = 'SELECT id_user,pseudo,password FROM user WHERE id_user =:user';
+    $data = $this->createQuery($sql,['user'=>$idUser]);
+    $result=$data->fetch();
+    $isPasswordOK = password_verify($post->get('password'),$result['password']);
+    return ['result'=>$result,'isPasswordOK'=>$isPasswordOK];
+  }
 
 }
 ?>

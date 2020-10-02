@@ -1,4 +1,4 @@
-<form method="post" action="./index.php?route=contact">
+<form method="post" action="./index.php?">
 
   <div id="Pseudo">
     <label for="pseudo">Pseudo</label></br>
@@ -10,6 +10,12 @@
     <label for="email">E-mail</label></br>
     <input type="email" name="email" id="email" value="<?= isset($post) ? htmlspecialchars($post->get('email')):"";?>">
     <?= isset($errors['email']) ? $errors['email']:'';?>
+  </div>
+
+  <div id="Sujet">
+    <label for="sujet">Sujet</label></br>
+    <input type="text" id="sujet" name="sujet" value="<?= isset($post) ? htmlspecialchars($post->get('sujet')):"";?>">
+    <?= isset($errors['sujet']) ? $errors['sujet']:'';?>
   </div>
 
   <div id="Message">

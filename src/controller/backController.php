@@ -105,7 +105,7 @@ class backController extends Controller{
     if($post->get('submit')){
       $errors = $this->validation->validate($post,'utilisateur');
       if(!$errors){
-        $this->utilisateurDAO->modifProfil($post,$idUser);
+        $this->utilisateurDAO->modifPseudo($post,$idUser);
       }
       else{
         if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
@@ -119,12 +119,10 @@ class backController extends Controller{
 
     $post->set('id_user',$user->getId());
     $post->set('pseudo',$user->getPseudo());
-    $post->set('password',$user->getPassword());
 
     if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
 
-    }
-    else{
+    }else{
       return $this->view->rendu('modifProfil',[
         'post'=>$post
       ]);
@@ -161,22 +159,30 @@ class backController extends Controller{
     header('Location:../index.php');
   }
 
-  public function modifPassword($post){
+  public function modifPassword($post,$idUser){
     if($post->get('submit')){
-      $result=$this->utilisateurDAO->connexion($post);
+      $result=$this->utilisateurDAO->getPassword($post,$idUser);
       $errors=$this->validation->validate($post,'utilisateur');
-      if($result && $result['isPasswordOK']){
-
+      if($result && $result['isPasswordOK'] && empty($errors)){
+        if(strcmp($post->get('nvPassword'),$post->get('nvPassword2'))==0){
+          $this->utilisateurDAO->modifPassword($post,$idUser);
+        }
+        else{
+          $errors['nvPassword2']='<p>Le mot de passe ne correspond pas</p>';
+        }
       }
       else {
-        return $this->view->rendu('modifPassword',[
-          'post'=>$post,
-          'errors'=>$errors
-        ]);
+        if(strcmp($post->get('nvPassword'),$post->get('nvPassword2'))!==0){
+          $errors['nvPassword2']='<p>Le mot de passe ne correspond pas</p>';
+        }
       }
+      return $this->view->rendu('modifPassword',[
+        'post'=>$post,
+        'errors'=>$errors
+      ]);
     }
     return $this->view->rendu('modifPassword',[
-      'post'=>$post
+      'post'=>$post,
     ]);
   }
 

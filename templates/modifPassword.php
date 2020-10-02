@@ -11,11 +11,11 @@
       <?=isset($errors['password'])?$errors['password']:'';?>
 
       <label for="nvPassword">Nouveau mot de passe</label></br>
-      <input type="nvPassword" id="nvPassword" name="nvPassword"></br>
+      <input type="password" id="nvPassword" name="nvPassword"></br>
       <?=isset($errors['nvPassword'])?$errors['nvPassword']:'';?>
 
       <label for="nvPassword2">Confirmation mot de passe</label></br>
-      <input type="nvPassword2" id="nvPassword2" name="nvPassword2"></br>
+      <input type="password" id="nvPassword2" name="nvPassword2"></br>
       <?=isset($errors['nvPassword2'])?$errors['nvPassword2']:'';?>
 
       <input type="submit" value="Envoyer" id="submitMDP" name="submit">

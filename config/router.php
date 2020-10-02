@@ -100,14 +100,7 @@ class router{
         elseif ($route==='portofolio') {
           $this->frontController->portofolio();
         }
-        elseif ($route==='modifProfil') {
-          if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
-            $this->backController->modifProfil($this->request->getPost(),$this->request->getGet()->get('profilId'));
-          }
-          else{
-            $this->backController->modifProfil($this->request->getPost(),$this->request->getGet()->get('profilId'));
-          }
-        }
+
         elseif ($route==='categorie') {
           $this->frontController->categorie($this->request->getGet()->get('categorie'));
         }
@@ -132,10 +125,28 @@ class router{
         }
         elseif ($route==='modifPassword') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-            $this->backController->modifPassword($this->request->getpost());
+            $this->backController->modifPassword($this->request->getpost(),$this->request->getSession()->get('id'));
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');
+          }
+        }
+        elseif ($route==='modifProfil') {
+          if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+            if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+              $this->backController->modifProfil($this->request->getPost(),$this->request->getGet()->get('profilId'));
+            }else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
+          }
+          else{
+            if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+              $this->backController->modifProfil($this->request->getPost(),$this->request->getGet()->get('profilId'));
+            }else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
           }
         }
         else{
