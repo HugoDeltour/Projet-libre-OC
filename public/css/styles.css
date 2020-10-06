@@ -15,12 +15,21 @@ a{
   color: white;
 }
 
+p{
+  margin-bottom: 0;
+}
+
 #image{
     margin-top:3%;
 }
 
 .image{
-  height: 600px;
+  height: 100%;
+}
+
+#image img{
+  height: 400px;
+  width:auto;
 }
 
 #Message,#description,#commentaire{
@@ -36,6 +45,10 @@ form p{
 
 #logo{
   width:100px;
+}
+
+.navbar-brand{
+  margin-left:15px;
 }
 
 nav div{
@@ -71,6 +84,189 @@ nav div{
 }
 
 #submitPassword{
-  color:blue;
-  margin:10px 0 50px 0;
+  margin:10px 0 10px 0;
+}
+#lien-admin a{
+  margin:15px 0 15px 0;
+}
+
+.MDP{
+  margin: 10px 0 10px 0;
+}
+
+div [class ~='tox']{
+  width:350px;
+}
+
+.imageCarrousel img{
+  width:auto;
+  height: 400px;
+}
+
+#carrousel{
+  margin-top:100px;
+}
+
+@media screen and (max-width: 1000px){
+
+  #Administration{
+    display: none;
+  }
+
+  .navbar-toggler{
+    margin-right: 5%;
+  }
+
+  .imageCarrousel img{
+    height: 350px;
+  }
+
+}
+
+@media screen and (max-width: 800px){
+
+  .imageCarrousel img{
+    height: 300px;
+  }
+
+}
+
+@media screen and (max-width: 700px){
+
+    #portofolio{
+      flex-direction: column;
+      margin-left:20%;
+    }
+
+    #portofolio div{
+      width:400px;
+    }
+
+    .card-title{
+      margin:0;
+      margin-top:25%;
+    }
+
+    .card-img{
+      width:400px;
+      height: auto;
+    }
+}
+
+@media screen and (max-width: 650px){
+  #portofolio{
+    margin-left: 18%;
+  }
+
+
+  .imageCarrousel img{
+    height: 250px;
+  }
+}
+
+@media screen and (max-width: 600px){
+  #portofolio{
+    margin-left: 15%;
+  }
+}
+
+@media screen and (max-width: 550px){
+  #portofolio{
+    margin-left: 10%;
+  }
+}
+
+@media screen and (max-width: 500px){
+  #portofolio{
+    margin-left: 8%;
+  }
+
+  #carrousel{
+    margin-top:50px;
+  }
+}
+
+@media screen and (max-width: 450px){
+
+  #portofolio{
+    flex-direction: column;
+    margin-left:2%;
+  }
+
+  #portofolio div{
+    width:400px;
+  }
+
+  .card-title{
+    margin:0;
+    margin-top:25%;
+  }
+
+  .card-img{
+    width:400px;
+    height: auto;
+  }
+
+  .imageCarrousel img{
+    height: 200px;
+  }
+
+}
+
+@media screen and (max-width: 425px){
+  #portofolio{
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 375px){
+
+  #portofolio div{
+    width:300px;
+  }
+
+  #portofolio{
+    margin-left: 5%;
+  }
+
+  .card-img{
+    width:300px;
+    height: auto;
+  }
+}
+
+
+
+@media screen and (max-width: 360px){
+
+  #commentaire,#description,div [class ~='tox']{
+    width:300px;
+  }
+
+  input #submit{
+    margin-bottom: 20px;
+  }
+
+  #image img{
+    width:250px;
+    height: auto;
+  }
+
+}
+
+@media screen and (max-width: 320px){
+
+  #portofolio div{
+    width:250px;
+  }
+
+  #portofolio{
+    margin-left: 5%;
+  }
+
+  .card-img{
+    width:250px;
+    height: auto;
+  }
+
 }

@@ -15,8 +15,10 @@ class frontController extends Controller{
 
   public function home(){
     $req = $this->imageDAO->getCarrousel();
+    $compteCarrousel = $this->imageDAO->compteCarrousel();
     return $this->view->rendu('affichageAccueil',[
-      'req'=>$req
+      'req'=>$req,
+      'compteCarrousel'=>$compteCarrousel
     ]);
   }
 

@@ -25,7 +25,7 @@ class imageDAO extends DAO{
 	}
 
 	public function getImages(){
-		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image';
+		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image ORDER BY id_image';
 		$result = $this->createQuery($sql);
 		$img=[];
 		foreach ($result as $row) {

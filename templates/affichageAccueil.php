@@ -26,23 +26,25 @@ if(!empty($this->session->get('echec'))){
   </div>
   <?php
 }
- ?>
-
+?>
 <div id="MP-img">
-
-  <div id="image">
+  <div id="carrousel">
     <div class="carousel slide" id="carouselControls" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <p class="image">
-            <img src="../Photos/<?=$req[1]->getCategorie()?>/<?=$req[1]->getNom()?>" class="d-block w-50" alt="<?=$req[1]->getAlt()?>">
+          <p class="imageCarrousel">
+            <img src="../Photos/<?=$req[0]->getCategorie()?>/<?=$req[0]->getNom()?>" class="d-block" alt="<?=$req[0]->getAlt()?>">
           </p>
         </div>
-        <div class="carousel-item ">
-          <p class="image">
-            <img src="../Photos/<?=$req[0]->getCategorie()?>/<?=$req[0]->getNom()?>" class="d-block w-50" alt="<?=$req[1]->getAlt()?>">
-          </p>
-        </div>
+        <?php for($i=1;$i<$compteCarrousel;$i++){
+          ?>
+          <div class="carousel-item ">
+            <p class="imageCarrousel">
+              <img src="../Photos/<?=$req[$i]->getCategorie()?>/<?=$req[$i]->getNom()?>" class="d-block" alt="<?=$req[$i]->getAlt()?>">
+            </p>
+          </div>
+          <?php
+        }?>
       </div>
       <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev" >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

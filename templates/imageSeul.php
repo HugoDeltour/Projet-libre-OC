@@ -25,7 +25,7 @@ require('menu.php');
           {?>
             <div id="Commentaire">
               <p><?= htmlspecialchars($comment->getPseudo());?></p>
-              <p><?= $comment->getComment();?></p>
+              Commentaire:<?= $comment->getComment();?>
               <p><?= htmlspecialchars($comment->getDate());?></p>
               <?php
               if($comment->isSignal()){

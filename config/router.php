@@ -5,6 +5,9 @@ use App\src\controller\errorController;
 use App\src\controller\backController;
 use Exception;
 
+/**
+ * Class router servant à diriger le client vers la bonne page avec les informations demandées
+ */
 class router{
 
   private $frontController;
@@ -28,7 +31,13 @@ class router{
         }
         elseif ($route==='administration') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-            $this->backController->administration();
+            if(!preg_match("/mobile/i",$_SERVER['HTTP_USER_AGENT'])){
+              $this->backController->administration();
+            }
+            else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');
@@ -36,7 +45,13 @@ class router{
         }
         elseif ($route==='ajoutImage') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-            $this->backController->ajoutImage($this->request->getPost());
+            if(!preg_match("/mobile/i",$_SERVER['HTTP_USER_AGENT'])){
+              $this->backController->ajoutImage($this->request->getPost());
+            }
+            else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');
@@ -44,7 +59,13 @@ class router{
         }
         elseif ($route==='modifImage') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-            $this->backController->modifImage($this->request->getPost(),$this->request->getGet()->get('imgID'));
+            if(!preg_match("/mobile/i",$_SERVER['HTTP_USER_AGENT'])){
+              $this->backController->modifImage($this->request->getPost(),$this->request->getGet()->get('imgID'));
+            }
+            else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');
@@ -75,7 +96,13 @@ class router{
         }
         elseif ($route==='commentairesSignales') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-            $this->frontController->commentairesSignales();
+            if(!preg_match("/mobile/i",$_SERVER['HTTP_USER_AGENT'])){
+              $this->frontController->commentairesSignales();
+            }
+            else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');
@@ -83,7 +110,13 @@ class router{
         }
         elseif ($route==='supprimerCommentaire') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-            $this->backController->supprimerCommentaire($this->request->getGet()->get('comID'));
+            if(!preg_match("/mobile/i",$_SERVER['HTTP_USER_AGENT'])){
+              $this->backController->supprimerCommentaire($this->request->getGet()->get('comID'));
+            }
+            else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');
@@ -91,7 +124,13 @@ class router{
         }
         elseif ($route==='nonSignalCommentaire') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-          $this->backController->nonSignalCommentaire($this->request->getGet()->get('comID'));
+            if(!preg_match("/mobile/i",$_SERVER['HTTP_USER_AGENT'])){
+              $this->backController->nonSignalCommentaire($this->request->getGet()->get('comID'));
+            }
+            else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');
@@ -109,7 +148,13 @@ class router{
         }
         elseif ($route==='modifCarrousel') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-            $this->backController->modifCarrousel($this->request->getpost());
+            if(!preg_match("/mobile/i",$_SERVER['HTTP_USER_AGENT'])){
+              $this->backController->modifCarrousel($this->request->getpost());
+            }
+            else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');
@@ -117,7 +162,13 @@ class router{
         }
         elseif ($route==='ajoutCarrousel') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-            $this->backController->ajoutCarrousel($this->request->getpost());
+            if(!preg_match("/mobile/i",$_SERVER['HTTP_USER_AGENT'])){
+              $this->backController->ajoutCarrousel($this->request->getpost());
+            }
+            else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');

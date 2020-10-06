@@ -166,6 +166,8 @@ class backController extends Controller{
       if($result && $result['isPasswordOK'] && empty($errors)){
         if(strcmp($post->get('nvPassword'),$post->get('nvPassword2'))==0){
           $this->utilisateurDAO->modifPassword($post,$idUser);
+          $this->session->set('notification','Mot de passe modifié');
+          header('Location:../index.php');
         }
         else{
           $errors['nvPassword2']='<p>Le mot de passe ne correspond pas</p>';
