@@ -1,6 +1,6 @@
 <?php
-$route = isset($post) && $post->get('id_image') ? 'modifCarrousel' : 'ajoutCarrousel' ;
-$submit = $route === 'ajoutCarrousel' ? 'Envoyer' : 'Mettre à jour';
+$route = 'ajoutCarrousel' ;
+$submit = 'Envoyer';
 ?>
 
 <form method="post" action="../index.php?route=<?=$route?>" enctype="multipart/form-data">
@@ -11,10 +11,9 @@ $submit = $route === 'ajoutCarrousel' ? 'Envoyer' : 'Mettre à jour';
   </div></br>
 
   <div id="fichier">
-    <input type="hidden" name="MAX_FILE_SIZE" value="<?=ini_get('upload_max_filesize');?>">
-    <label for="nom_img_fichier">Choix du fichier</label></br>
-    <input type="file" id="nom_img_fichier" name="nom_img_fichier" value="<?=isset($post) ? htmlspecialchars($post->get('nom_img_fichier')):"";?>">
-    <?=isset($errors['MAX_FILE_SIZE'])?$errors['MAX_FILE_SIZE']:'';?>
+    <input type="hidden" name="MAX_FILE_SIZE" value="10000000000000000">
+    Fichier : <input type="file" name="nom_img_fichier">
+    <?=isset($errors['nom_img_fichier'])?$errors['nom_img_fichier']:'';?>
   </div></br>
 
   <div id="date">
@@ -29,10 +28,14 @@ $submit = $route === 'ajoutCarrousel' ? 'Envoyer' : 'Mettre à jour';
     <?=isset($errors['lieu_image'])?$errors['lieu_image']:'';?>
   </div></br>
 
+  <div id="categorie">
+    <input type="hidden" name="categorie" value="carrousel">
+  </div></br>
+
   <div id="description">
     <label for="alt">Description de l'image</label></br>
     <textarea id="alt" name="alt"><?=isset($image) ? $image[$this->session->get('numero_carrousel')]->getAlt():""; isset($post) ? htmlspecialchars($post->get('alt')):""; ?></textarea>
     <?=isset($errors['alt'])?$errors['alt']:'';?>
   </div></br>
-  <input type="submit" value="<?=$submit?>" id="submit" name="submit">
+  <input type="submit" value="<?=$submit?>" id="submitCarrousel" name="submit">
 </form>

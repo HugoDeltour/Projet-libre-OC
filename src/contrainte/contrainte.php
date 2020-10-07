@@ -59,8 +59,8 @@ class contrainte{
     }
   }
 
-  public function validateDate($name,$value){
-    if(strcmp($this->isValid($value,'Y-m-d'),'bool(false)')==0){
+  public function validateDate($value){
+    if(!$this->isValid($value,'Y-m-d')){
       return '<p>La date saisi n\'est pas valide, veuillez essayer "AAAA-MM-DD"</p>';
     }
   }

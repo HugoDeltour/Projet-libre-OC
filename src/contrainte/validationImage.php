@@ -30,8 +30,8 @@ class validationImage extends validation{
       $this->addError($name,$error);
     }
     elseif ($name==='MAX_FILE_SIZE') {
-      $error=$this->checkName($name,$value);
-      $this->addError($name,$error);
+      $error=$this->checkName();
+      $this->addError('nom_img_fichier',$error);
     }
     elseif ($name==='date_image') {
       $error=$this->checkDate($name,$value);
@@ -69,8 +69,8 @@ class validationImage extends validation{
     }
   }
 
-  private function checkName($name,$value){
-    if ($value==='256M') {
+  private function checkName(){
+    if(empty($_FILES['nom_img_fichier']['name'])){
       return '<p>Fichier non sélectionné</p>';
     }
   }
@@ -85,8 +85,8 @@ class validationImage extends validation{
     if($this->contrainte->longMax($name,$value,255)){
       return $this->contrainte->longMax('date',$value,255);
     }
-    if($this->contrainte->validateDate($name,$value)){
-      return $this->contrainte->validateDate($name,$value);
+    if($this->contrainte->validateDate($value)){
+      return $this->contrainte->validateDate($value);
     }
   }
 

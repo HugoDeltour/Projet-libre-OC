@@ -1,4 +1,4 @@
-var id = document.getElementById('varId').value;
+var id = document.getElementById('varId').value
 var getHttpRequest = function () {
   var httpRequest = false;
 
@@ -28,7 +28,7 @@ var getHttpRequest = function () {
   return httpRequest
 }
 
-var form = document.querySelector('#formUser');
+var form = document.querySelector('#formUser')
 
 form.addEventListener('submit',function(e){
   var hasErrors = form.querySelectorAll('.has-error')
@@ -41,8 +41,8 @@ form.addEventListener('submit',function(e){
   }
   var reussi = document.getElementById('resultat')
   reussi.innerHTML = ''
-  e.preventDefault();
-  var xhr = getHttpRequest();
+  e.preventDefault()
+  var xhr = getHttpRequest()
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status != 200) {

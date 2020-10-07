@@ -68,10 +68,11 @@ nav div{
   padding: 0;
   border:0;
   margin: 15px;
+  background-color:inherit;
 }
 
 .card-title{
-  margin-top:25%;
+  margin-top:5%;
 }
 
 .card-title a{
@@ -81,6 +82,8 @@ nav div{
 
 .card-img{
   margin:0;
+  height: 300px;
+  width: auto;
 }
 
 #submitPassword{
@@ -178,7 +181,7 @@ div [class ~='tox']{
 
 @media screen and (max-width: 500px){
   #portofolio{
-    margin-left: 8%;
+    margin-left: 4%;
   }
 
   #carrousel{
@@ -250,6 +253,10 @@ div [class ~='tox']{
   #image img{
     width:250px;
     height: auto;
+  }
+
+  #portofolio{
+    margin-left: 3%;
   }
 
 }

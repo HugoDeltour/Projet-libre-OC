@@ -200,6 +200,20 @@ class router{
             }
           }
         }
+        elseif ($route==='modifImgCarrousel') {
+          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
+            if(!preg_match("/mobile/i",$_SERVER['HTTP_USER_AGENT'])){
+              $this->backController->modifImgCarrousel($this->request->getpost(),$this->request->getGet()->get('idImg'));
+            }
+            else{
+              $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+              header('Location:../index.php');
+            }
+          }else{
+            $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
+            header('Location:../index.php');
+          }
+        }
         else{
           $this->errorController->errorNotFound();
         }

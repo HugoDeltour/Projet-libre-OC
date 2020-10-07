@@ -13,6 +13,7 @@ class backController extends Controller{
         $file=$this->upload($post->get('categorie'));
         $this->imageDAO->ajoutimage($post,$file);
         $this->session->set('notification','L\'image a été ajouté !');
+        header('Location: ../index.php');
       }
       return $this->view->rendu('ajout_image',[
         'post'=>$post,
@@ -31,6 +32,7 @@ class backController extends Controller{
         $file=$this->upload('carrousel');
         $this->imageDAO->ajoutimage($post,$file);
         $this->session->set('notification','L\'image a été ajouté au carrousel !');
+        header('Location: ../index.php');
       }
       return $this->view->rendu('ajout_carrousel',[
         'post'=>$post,
@@ -82,9 +84,8 @@ class backController extends Controller{
       if(!$errors){
         $file=$this->upload('carousel');
         $this->imageDAO->modifimage($post,$imgID,$file);
-        $this->session->set('notification','Le carrousel a été modifié !');
-        header('Location: ../index.php');
       }
+
       return $this->view->rendu('modifCarrousel',[
         'compte'=>$compte,
         'image'=>$image,
@@ -188,10 +189,31 @@ class backController extends Controller{
     ]);
   }
 
+  public function modifImgCarrousel(parametre $post,$idImg){
+    $image = $this->imageDAO->getImage($idImg);
+    if($post->get('submit')){
+      $errors = $this->validation->validate($post,'image');
+      if(!$errors){
+        $file=$this->upload('carrousel');
+        $this->imageDAO->modifimage($post,$idImg,$file);
+        $this->session->set('notification','Carrousel modifié');
+        header('location:../index.php?route=modifCarrousel');
+      }
+      return $this->view->rendu('modifImgCarrousel',[
+        'image'=>$image,
+        'errors'=> $errors
+      ]);
+    }
+
+    return $this->view->rendu('modifImgCarrousel',[
+      'image'=>$image
+    ]);
+  }
+
   public function upload($categorie){
     $dossier = 'Photos/'.$categorie.'/';
     $fichier = basename($_FILES['nom_img_fichier']['name']);
-    $taille_maxi = ini_get('upload_max_filesize');
+    $taille_maxi = 10000000000000000;
     $taille = filesize($_FILES['nom_img_fichier']['tmp_name']);
     $extensions = array('.png', '.gif', '.jpg', '.jpeg','.JPG');
     $extension = strrchr($_FILES['nom_img_fichier']['name'], '.');
@@ -212,6 +234,7 @@ class backController extends Controller{
               'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
          if(move_uploaded_file($_FILES['nom_img_fichier']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
          {
+
               var_dump('Upload effectué avec succès !');
          }
          else //Sinon (la fonction renvoie FALSE).

@@ -5,6 +5,6 @@
 <div id="MP-img">
 <div id="modifImg">
   <h1>Modification</h1>
-  <?php include('base_form_Image.php');?>
+  <?php include('base_form_modifImage.php');?>
 </div>
 </div>

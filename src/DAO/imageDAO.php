@@ -45,7 +45,7 @@ class imageDAO extends DAO{
 	}
 
 	public function ajoutImage(parametre $img,$file){
-		$sql = 'INSERT INTO image (titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img) VALUES(?,?,?,?,?)';
+		$sql = 'INSERT INTO image (titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img) VALUES(?,?,?,?,?,?)';
 		$this->createQuery($sql, [$img->get('titre_image'),$file,$img->get('date_image'),$img->get('lieu_image'),$img->get('categorie'),$img->get('alt')]);
 	}
 
@@ -82,7 +82,7 @@ class imageDAO extends DAO{
 	}
 
 	public function getCarrousel(){
-		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image WHERE categorie=?';
+		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image WHERE categorie=? ORDER BY id_image';
 		$result = $this->createQuery($sql,['carrousel']);
 		$img=[];
 		$idImg=0;

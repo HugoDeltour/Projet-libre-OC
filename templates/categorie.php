@@ -12,7 +12,7 @@
             ?>
             <div id="cat_img">
               <h1><a href="../index.php?route=image&imgID=<?=htmlspecialchars($donnees->getId());?>"><?php echo $donnees->getTitre();?></a></h1>
-              <img class="img" src="../Photos/<?=$donnees->getCategorie();?>/<?=$donnees->getNom(); ?>">
+              <img class="img" src="../Photos/<?=$donnees->getCategorie();?>/<?=$donnees->getNom(); ?>" alt="<?= $donnees->getAlt()?>">
             </div></br>
             <?php
         };
