@@ -2,29 +2,26 @@
   $this->title = "Modification du mot de passe";
   require('menu.php');
 ?>
-<div id="MP-img">
-  <div id="modifImg">
-    <h1>Modification du mot de passe</h1>
-    <form method="POST">
-      <div class="MDP">
-        <label for="password">Ancien mot de passe</label></br>
-        <input type="password" id="password" name="password"></br>
-        <?=isset($errors['password'])?$errors['password']:'';?>
-      </div>
-
-      <div class="MDP">
-        <label for="nvPassword">Nouveau mot de passe</label></br>
-        <input type="password" id="nvPassword" name="nvPassword"></br>
-        <?=isset($errors['nvPassword'])?$errors['nvPassword']:'';?>
-      </div>
-
-      <div class="MDP">
-        <label for="nvPassword2">Confirmation mot de passe</label></br>
-        <input type="password" id="nvPassword2" name="nvPassword2"></br>
-        <?=isset($errors['nvPassword2'])?$errors['nvPassword2']:'';?>
-      </div>
-
-      <input type="submit" value="Envoyer" id="submitMDP" name="submit">
-    </form>
+<h1>Modification du mot de passe</h1>
+<form method="POST">
+  <div class="MDP">
+    <label for="MotDePasse">Ancien mot de passe (*)</label></br>
+    <input type="MotDePasse" id="MotDePasse" name="MotDePasse"></br>
+    <?=isset($errors['MotDePasse'])?$errors['MotDePasse']:'';?>
   </div>
-</div>
+
+  <div class="MDP">
+    <label for="nvMotDePasse">Nouveau mot de passe (*)</label></br>
+    <input type="MotDePasse" id="nvMotDePasse" name="nvMotDePasse"></br>
+    <?=isset($errors['nvMotDePasse'])?$errors['nvMotDePasse']:'';?>
+  </div>
+
+  <div class="MDP">
+    <label for="nvMotDePasse2">Confirmation mot de passe (*)</label></br>
+    <input type="MotDePasse" id="nvMotDePasse2" name="nvMotDePasse2"></br>
+    <?=isset($errors['nvMotDePasse2'])?$errors['nvMotDePasse2']:'';?>
+  </div>
+
+  <p>(*) Champs obligatoire</p></br>
+  <input type="submit" value="Envoyer" id="submitMDP" name="submit">
+</form>

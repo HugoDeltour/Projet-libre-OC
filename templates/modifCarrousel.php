@@ -5,7 +5,7 @@
     ?>
     <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert">
        <h5 class="alert-heading">
-      <?= $this->session->display('notification');?>
+      <?= $this->session->afficher('notification');?>
       </h5>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">×</span>
@@ -18,7 +18,7 @@
     ?>
       <div id="notification" class="alert alert-danger alert-dismissible fade show" role="alert">
        <h5 class="alert-heading">
-      <?= $this->session->display('echec');?>
+      <?= $this->session->afficher('echec');?>
       </h5>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">×</span>

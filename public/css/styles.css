@@ -86,7 +86,7 @@ nav div{
   width: auto;
 }
 
-#submitPassword{
+#submitPassword, #submit{
   margin:10px 0 10px 0;
 }
 #lien-admin a{
@@ -101,14 +101,15 @@ div [class ~='tox']{
   width:350px;
 }
 
-.imageCarrousel img{
-  width:auto;
+.d-block{
+  width: auto;
   height: 400px;
 }
 
 #carrousel{
   margin-top:100px;
 }
+
 
 @media screen and (max-width: 1000px){
 
@@ -161,8 +162,7 @@ div [class ~='tox']{
     margin-left: 18%;
   }
 
-
-  .imageCarrousel img{
+  .d-block{
     height: 250px;
   }
 }

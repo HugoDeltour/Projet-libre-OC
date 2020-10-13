@@ -17,36 +17,36 @@ class validationImage extends validation{
     $this->contrainte = new contrainte();
   }
 
-  public function check(parametre $post){
+  public function validationImg(parametre $post){
     foreach ($post->all() as $key => $value) {
-      $this->checkChamps($key,$value);
+      $this->validationChamps($key,$value);
     }
     return $this->errors;
   }
 
-  private function checkChamps($name,$value){
+  private function validationChamps($name,$value){
     if($name==='titre_image'){
-      $error=$this->checkTitre($name,$value);
+      $error=$this->validationTitre($name,$value);
       $this->addError($name,$error);
     }
     elseif ($name==='MAX_FILE_SIZE') {
-      $error=$this->checkName();
+      $error=$this->validationName();
       $this->addError('nom_img_fichier',$error);
     }
     elseif ($name==='date_image') {
-      $error=$this->checkDate($name,$value);
+      $error=$this->validationDate($name,$value);
       $this->addError($name,$error);
     }
     elseif ($name==='lieu_image') {
-      $error=$this->checkLieu($name,$value);
+      $error=$this->validationLieu($name,$value);
       $this->addError($name,$error);
     }
     elseif($name==='categorie'){
-      $error=$this->checkCategorie($name,$value);
+      $error=$this->validationCategorie($name,$value);
       $this->addError($name,$error);
     }
     elseif($name==='alt'){
-      $error=$this->checkAlt($name,$value);
+      $error=$this->validationAlt($name,$value);
       $this->addError($name,$error);
     }
   }
@@ -57,7 +57,7 @@ class validationImage extends validation{
     }
   }
 
-  private function checkTitre($name,$value){
+  private function validationTitre($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('titre',$value);
     }
@@ -69,13 +69,13 @@ class validationImage extends validation{
     }
   }
 
-  private function checkName(){
+  private function validationName(){
     if(empty($_FILES['nom_img_fichier']['name'])){
       return '<p>Fichier non sélectionné</p>';
     }
   }
 
-  private function checkDate($name,$value){
+  private function validationDate($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('date',$value);
     }
@@ -90,7 +90,7 @@ class validationImage extends validation{
     }
   }
 
-  private function checkLieu($name,$value){
+  private function validationLieu($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('lieu',$value);
     }
@@ -102,14 +102,14 @@ class validationImage extends validation{
     }
   }
 
-  private function checkCategorie($name,$value){
+  private function validationCategorie($name,$value){
     if($value === 'Veuillez selectionner une option'){
       $value = '<p>Veuillez sélectionner une catégorie valide !</p>';
       return $value;
     }
   }
 
-  private function checkAlt($name,$value){
+  private function validationAlt($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('lieu',$value);
     }

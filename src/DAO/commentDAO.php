@@ -24,7 +24,7 @@ class commentDAO extends DAO{
   public function getCommentsFromImage($imageId)
   {
       $sql = 'SELECT id_commentaire, pseudo, text_commentaire, date_creation, signaler, commentaire_id_image FROM commentaire WHERE commentaire_id_image = ? ORDER BY date_creation DESC';
-      $result = $this->createQuery($sql,[$imageId]);
+      $result = $this->requete($sql,[$imageId]);
       $comments=[];
       foreach($result as $row){
         $idComment = $row['id_commentaire'];
@@ -36,22 +36,22 @@ class commentDAO extends DAO{
 
   public function ajoutCommentaire(parametre $post,$imgID){
     $sql='INSERT INTO commentaire (pseudo,text_commentaire,date_creation,signaler,commentaire_id_image) VALUES (?,?,NOW(),?,?)';
-    $this->createQuery($sql,[$post->get('pseudo'),$post->get('commentaire'),0,$imgID]);
+    $this->requete($sql,[$post->get('pseudo'),$post->get('commentaire'),0,$imgID]);
   }
 
   public function signalerCommentaire($commentID){
     $sql = 'UPDATE commentaire SET signaler=? WHERE id_commentaire=?';
-    $this->createQuery($sql,[1,$commentID]);
+    $this->requete($sql,[1,$commentID]);
   }
 
   public function supprimeCommentaire($commentID){
     $sql = 'DELETE FROM commentaire WHERE id_commentaire=?';
-    $this->createQuery($sql,[$commentID]);
+    $this->requete($sql,[$commentID]);
   }
 
   public function commentairesSignales(){
     $sql = 'SELECT id_commentaire, pseudo, text_commentaire, date_creation, signaler, commentaire_id_image FROM commentaire WHERE signaler=?';
-    $result = $this->createQuery($sql,[1]);
+    $result = $this->requete($sql,[1]);
     $comments=[];
     foreach($result as $row){
       $idComment = $row['id_commentaire'];
@@ -63,12 +63,12 @@ class commentDAO extends DAO{
 
 	public function supprimerCommentaire($comID){
 		$sql = 'DELETE FROM commentaire WHERE id_commentaire=?';
-		$this->createQuery($sql,[$comID]);
+		$this->requete($sql,[$comID]);
 	}
 
   public function nonSignalCommentaire($comID){
     $sql = 'UPDATE commentaire SET signaler=0 WHERE id_commentaire=?';
-    $this->createQuery($sql,[$comID]);
+    $this->requete($sql,[$comID]);
   }
 
 

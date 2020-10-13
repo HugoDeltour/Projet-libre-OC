@@ -1,5 +1,4 @@
 <?php
-
-echo '404 - page not found';
-
+$this->session->set('echec','Page non trouvée');
+header('Location:../index.php');
 ?>

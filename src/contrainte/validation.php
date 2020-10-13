@@ -7,25 +7,25 @@ namespace App\src\contrainte;
  */
 class validation{
 
-  public function validate($data,$name){
+  public function validation($data,$name){
     if($name === 'image'){
       $validationImage = new validationImage();
-      $errors = $validationImage->check($data);
+      $errors = $validationImage->validationImg($data);
       return $errors;
     }
     elseif ($name==='commentaire') {
       $validationCommentaire = new validationCommentaire();
-      $errors = $validationCommentaire->check($data);
+      $errors = $validationCommentaire->validationCom($data);
       return $errors;
     }
     elseif ($name==='utilisateur') {
       $validationUtilisateur = new validationUtilisateur();
-      $errors = $validationUtilisateur->check($data);
+      $errors = $validationUtilisateur->validationMembre($data);
       return $errors;
     }
     elseif ($name==='contact') {
       $validationContact = new validationContact();
-      $errors = $validationContact->check($data);
+      $errors = $validationContact->validationDemande($data);
       return $errors;
     }
   }

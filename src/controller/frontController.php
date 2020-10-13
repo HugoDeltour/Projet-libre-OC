@@ -33,7 +33,7 @@ class frontController extends Controller{
 
   public function ajoutCommentaire(parametre $post,$imgID){
     if($post->get('submit')){
-      $errors=$this->validation->validate($post,'commentaire');
+      $errors=$this->validation->validation($post,'commentaire');
       if(!$errors){
         $this->commentDAO->ajoutCommentaire($post,$imgID);
         $this->session->set('notification','Le commentaire a été ajouté');
@@ -58,7 +58,7 @@ class frontController extends Controller{
 
   public function inscription(parametre $post){
     if($post->get('submit')){
-      $errors=$this->validation->validate($post,'utilisateur');
+      $errors=$this->validation->validation($post,'utilisateur');
       if($this->utilisateurDAO->checkUtilisateur($post)){
         $errors['pseudo']=$this->utilisateurDAO->checkUtilisateur($post);
       }
@@ -80,7 +80,7 @@ class frontController extends Controller{
   public function connexion(parametre $post){
     if($post->get('submit')){
       $result=$this->utilisateurDAO->connexion($post);
-      $errors=$this->validation->validate($post,'utilisateur');
+      $errors=$this->validation->validation($post,'utilisateur');
       if($result && $result['isPasswordOK']){
         $this->session->set('notification','Bienvenue');
         $this->session->set('id',$result['result']['id_user']);
@@ -119,10 +119,9 @@ class frontController extends Controller{
   public function contact(parametre $post){
     if($post->get('submit')){
       $result=$this->utilisateurDAO->connexion($post);
-      $errors=$this->validation->validate($post,'contact');
-      var_dump($post);
+      $errors=$this->validation->validation($post,'contact');
       if(!$errors){
-        mail('libre@dixideo.fr',$post->get('sujet'),htmlspecialchars($post->get('message')),'From:'.$post->get('email'));
+        mail('libre@dixideo.fr',$post->get('sujet'),strip_tags($post->get('message'),'<br>'),'From:'.$post->get('email'));
         $this->session->set('notification','E-mail envoyé');
         header('Location:../index.php');
       }

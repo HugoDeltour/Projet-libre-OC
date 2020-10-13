@@ -15,14 +15,14 @@ abstract class DAO{
 
 	private $connection;
 
-	private function checkConnection(){
+	private function validationConnection(){
 		if($this->connection===null){
-			return $this->getConnection();
+			return $this->Connection();
 		}
 		return $this->connection;
 	}
 
-	private function getConnection(){
+	private function connection(){
 		try
 		{
 	    	$this->connection = new PDO(DB_host, DB_user, DB_password);
@@ -35,14 +35,14 @@ abstract class DAO{
 		}
 	}
 
-	protected function createQuery($sql, $parametre = null){
+	protected function requete($sql, $parametre = null){
 		if($parametre){
-			$req = $this->checkConnection()->prepare($sql);
+			$req = $this->validationConnection()->prepare($sql);
 			$req->execute($parametre);
 			return $req;
 		}
 
-		$req = $this->checkConnection()->query($sql);
+		$req = $this->validationConnection()->query($sql);
     return $req;
 	}
 

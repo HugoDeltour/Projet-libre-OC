@@ -19,7 +19,7 @@ class session{
     }
   }
 
-  public function display($name){
+  public function afficher($name){
     if(isset($_SESSION[$name])){
       $cle = $this->get($name);
       $this->supprime($name);

@@ -21,14 +21,14 @@ class utilisateurDAO extends DAO{
   }
 
   public function inscription(parametre $post){
-    $this->checkUtilisateur($post);
+    $this->validationUtilisateur($post);
     $sql = 'INSERT INTO user (pseudo,password,role_id) VALUES (?,?,?)';
-    $this->createQuery($sql,[$post->get('pseudo'),password_hash($post->get('password'),PASSWORD_BCRYPT),2]);
+    $this->requete($sql,[$post->get('pseudo'),password_hash($post->get('password'),PASSWORD_BCRYPT),2]);
   }
 
-  public function checkUtilisateur(parametre $post){
+  public function validationUtilisateur(parametre $post){
     $sql = 'SELECT COUNT(pseudo) FROM user WHERE pseudo=?';
-    $result = $this->createQuery($sql,[$post->get('pseudo')]);
+    $result = $this->requete($sql,[$post->get('pseudo')]);
     $isUnique=$result->fetchColumn();
     if($isUnique){
       return '<p>Pseudo déjà existant</p>';
@@ -37,7 +37,7 @@ class utilisateurDAO extends DAO{
 
   public function connexion(parametre $post){
     $sql = 'SELECT user.id_user,user.password,role.nom_role FROM user INNER JOIN role ON role.id_role = user.role_id WHERE pseudo =?';
-    $data=$this->createQuery($sql,[$post->get('pseudo')]);
+    $data=$this->requete($sql,[$post->get('pseudo')]);
     $result=$data->fetch();
     $isPasswordOK = password_verify($post->get('password'),$result['password']);
     return ['result'=>$result,'isPasswordOK'=>$isPasswordOK];
@@ -45,7 +45,7 @@ class utilisateurDAO extends DAO{
 
   public function getProfil($idUser){
     $sql = 'SELECT id_user, pseudo, password FROM user WHERE id_user=?';
-    $result = $this->createQuery($sql,[$idUser]);
+    $result = $this->requete($sql,[$idUser]);
     $user = $result->fetch();
 		$result->closeCursor();
 		return $this->buildObjectUser($user);
@@ -53,27 +53,18 @@ class utilisateurDAO extends DAO{
 
   public function modifPseudo(parametre $post, $idUser){
 		$sql = 'UPDATE user SET pseudo=:pseudo WHERE id_user =:user_id ';
-    $this->createQuery($sql,[
+    $this->requete($sql,[
       'pseudo'=>$post->get('pseudo'),
       'user_id'=>$idUser
     ]);
 	}
 
-  public function modifPassword(parametre $post, $idUser){
+  public function modifMotDepasse(parametre $post, $idUser){
     $sql = 'UPDATE user SET password=:password WHERE id_user =:user_id ';
-    $this->createQuery($sql,[
+    $this->requete($sql,[
       'password'=>password_hash($post->get('nvPassword'),PASSWORD_BCRYPT),
       'user_id'=>$idUser
     ]);
   }
-
-  public function getPassword(parametre $post, $idUser){
-    $sql = 'SELECT id_user,pseudo,password FROM user WHERE id_user =:user';
-    $data = $this->createQuery($sql,['user'=>$idUser]);
-    $result=$data->fetch();
-    $isPasswordOK = password_verify($post->get('password'),$result['password']);
-    return ['result'=>$result,'isPasswordOK'=>$isPasswordOK];
-  }
-
 }
 ?>

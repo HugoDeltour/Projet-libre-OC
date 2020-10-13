@@ -18,28 +18,28 @@ class validationUtilisateur extends validation{
     $this->contrainte = new contrainte();
   }
 
-  public function check(parametre $post){
+  public function validationMembre(parametre $post){
     foreach ($post->all() as $key => $value) {
-      $this->checkChamps($key,$value);
+      $this->validationChamps($key,$value);
     }
     return $this->errors;
   }
 
-  private function checkChamps($name,$value){
+  private function validationChamps($name,$value){
     if($name==='pseudo'){
-      $error=$this->checkPseudo($name,$value);
+      $error=$this->validationPseudo($name,$value);
       $this->addError($name,$error);
     }
     elseif ($name==='password'){
-      $error=$this->checkPassword($name,$value);
+      $error=$this->validationPassword($name,$value);
       $this->addError($name,$error);
     }
     elseif ($name==='nvPassword'){
-      $error=$this->checkPassword($name,$value);
+      $error=$this->validationPassword($name,$value);
       $this->addError($name,$error);
     }
     elseif ($name==='nvPassword2'){
-      $error=$this->checkPassword($name,$value);
+      $error=$this->validationPassword($name,$value);
       $this->addError($name,$error);
     }
   }
@@ -50,7 +50,7 @@ class validationUtilisateur extends validation{
     }
   }
 
-  private function checkPseudo($name,$value){
+  private function validationPseudo($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('pseudo',$value);
     }
@@ -62,7 +62,7 @@ class validationUtilisateur extends validation{
     }
   }
 
-  private function checkPassword($name,$value){
+  private function validationPassword($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide($name,$value);
     }

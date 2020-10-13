@@ -8,12 +8,12 @@ class backController extends Controller{
 
   public function ajoutImage(parametre $post){
     if($post->get('submit')){
-      $errors = $this->validation->validate($post,'image');
+      $errors = $this->validation->validation($post,'image');
       if(!$errors){
-        $file=$this->upload($post->get('categorie'));
+        $file=$this->telechargement($post->get('categorie'));
         $this->imageDAO->ajoutimage($post,$file);
-        $this->session->set('notification','L\'image a été ajouté !');
-        header('Location: ../index.php');
+        $this->session->set('notification','L\'image a été ajoutée !');
+        /*header('Location: ../index.php');*/
       }
       return $this->view->rendu('ajout_image',[
         'post'=>$post,
@@ -27,11 +27,11 @@ class backController extends Controller{
 
   public function ajoutCarrousel(parametre $post){
     if($post->get('submit')){
-      $errors = $this->validation->validate($post,'image');
+      $errors = $this->validation->validation($post,'image');
       if(!$errors){
-        $file=$this->upload('carrousel');
+        $file=$this->telechargement('carrousel');
         $this->imageDAO->ajoutimage($post,$file);
-        $this->session->set('notification','L\'image a été ajouté au carrousel !');
+        $this->session->set('notification','L\'image a été ajoutée au carrousel !');
         header('Location: ../index.php');
       }
       return $this->view->rendu('ajout_carrousel',[
@@ -48,9 +48,9 @@ class backController extends Controller{
   public function modifImage(parametre $post, $imgID){
     $image = $this->imageDAO->getimage($imgID);
     if($post->get('submit')){
-      $errors = $this->validation->validate($post,'image');
+      $errors = $this->validation->validation($post,'image');
       if(!$errors){
-        $file=$this->upload($post->get('categorie'));
+        $file=$this->telechargement($post->get('categorie'));
         $this->imageDAO->modifimage($post,$imgID,$file);
         $this->session->set('notification','L\'image a été modifiée !');
         header('Location: ../index.php');
@@ -80,9 +80,9 @@ class backController extends Controller{
     $image = $this->imageDAO->getCarrousel();
     $compte = $this->imageDAO->compteCarrousel();
     if($post->get('submit')){
-      $errors = $this->validation->validate($post,'image');
+      $errors = $this->validation->validation($post,'image');
       if(!$errors){
-        $file=$this->upload('carousel');
+        $file=$this->telechargement('carousel');
         $this->imageDAO->modifimage($post,$imgID,$file);
       }
 
@@ -104,7 +104,7 @@ class backController extends Controller{
   public function modifProfil(parametre $post,$idUser){
     $user = $this->utilisateurDAO->getProfil($idUser);
     if($post->get('submit')){
-      $errors = $this->validation->validate($post,'utilisateur');
+      $errors = $this->validation->validation($post,'utilisateur');
       if(!$errors){
         $this->utilisateurDAO->modifPseudo($post,$idUser);
       }
@@ -133,7 +133,7 @@ class backController extends Controller{
 
   public function supprimerImage($ImgID){
     $this->imageDAO->supprimerimage($ImgID);
-    $this->session->set('notification','L\'image a été supprimé');
+    $this->session->set('notification','L\'image a été supprimée');
     header('Location:../index.php');
   }
 
@@ -160,31 +160,31 @@ class backController extends Controller{
     header('Location:../index.php');
   }
 
-  public function modifPassword($post,$idUser){
+  public function modifMotDePasse($post,$idUser){
     if($post->get('submit')){
-      $result=$this->utilisateurDAO->getPassword($post,$idUser);
-      $errors=$this->validation->validate($post,'utilisateur');
-      if($result && $result['isPasswordOK'] && empty($errors)){
-        if(strcmp($post->get('nvPassword'),$post->get('nvPassword2'))==0){
-          $this->utilisateurDAO->modifPassword($post,$idUser);
+      $result=$this->utilisateurDAO->getMotDePasse($post,$idUser);
+      $errors=$this->validation->validation($post,'utilisateur');
+      if($result && $result['isMotDePasseOK'] && empty($errors)){
+        if(strcmp($post->get('nvMotDePasse'),$post->get('nvMotDePasse2'))==0){
+          $this->utilisateurDAO->modifMotDePasse($post,$idUser);
           $this->session->set('notification','Mot de passe modifié');
           header('Location:../index.php');
         }
         else{
-          $errors['nvPassword2']='<p>Le mot de passe ne correspond pas</p>';
+          $errors['nvMotDePasse2']='<p>Le mot de passe ne correspond pas</p>';
         }
       }
       else {
-        if(strcmp($post->get('nvPassword'),$post->get('nvPassword2'))!==0){
-          $errors['nvPassword2']='<p>Le mot de passe ne correspond pas</p>';
+        if(strcmp($post->get('nvMotDePasse'),$post->get('nvMotDePasse2'))!==0){
+          $errors['nvMotDePasse2']='<p>Le mot de passe ne correspond pas</p>';
         }
       }
-      return $this->view->rendu('modifPassword',[
+      return $this->view->rendu('modifMotDePasse',[
         'post'=>$post,
         'errors'=>$errors
       ]);
     }
-    return $this->view->rendu('modifPassword',[
+    return $this->view->rendu('modifMotDePasse',[
       'post'=>$post,
     ]);
   }
@@ -192,12 +192,12 @@ class backController extends Controller{
   public function modifImgCarrousel(parametre $post,$idImg){
     $image = $this->imageDAO->getImage($idImg);
     if($post->get('submit')){
-      $errors = $this->validation->validate($post,'image');
+      $errors = $this->validation->validation($post,'image');
       if(!$errors){
-        $file=$this->upload('carrousel');
+        $file=$this->telechargement('carrousel');
         $this->imageDAO->modifimage($post,$idImg,$file);
         $this->session->set('notification','Carrousel modifié');
-        header('location:../index.php?route=modifCarrousel');
+      //  header('location:../index.php?route=modifCarrousel');
       }
       return $this->view->rendu('modifImgCarrousel',[
         'image'=>$image,
@@ -210,9 +210,10 @@ class backController extends Controller{
     ]);
   }
 
-  public function upload($categorie){
+  public function telechargement($categorie){
     $dossier = 'Photos/'.$categorie.'/';
-    $fichier = basename($_FILES['nom_img_fichier']['name']);
+    $fichier = $_FILES['nom_img_fichier']['name'];
+    $trim = str_replace(' ','-',$fichier);
     $taille_maxi = 10000000000000000;
     $taille = filesize($_FILES['nom_img_fichier']['tmp_name']);
     $extensions = array('.png', '.gif', '.jpg', '.jpeg','.JPG');
@@ -220,34 +221,29 @@ class backController extends Controller{
     //Début des vérifications de sécurité...
     if(!in_array($extension, $extensions)) //Si l'extension n'est pas dans le tableau
     {
-         $erreur = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg, txt ou doc...';
+         $erreur = 'Vous devez telecharger un fichier de type png, gif, jpg, jpeg, txt ou doc...';
     }
     if($taille>$taille_maxi)
     {
          $erreur = 'Le fichier est trop gros...';
     }
-    if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
+    if(!isset($erreur)) //S'il n'y a pas d'erreur, on telecharge
     {
-         //On formate le nom du fichier ici...
-         $fichier = strtr($fichier,
-              'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',
-              'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
-         if(move_uploaded_file($_FILES['nom_img_fichier']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+         if(move_uploaded_file($_FILES['nom_img_fichier']['tmp_name'], $dossier . $trim)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
          {
-
-              var_dump('Upload effectué avec succès !');
+           $this->session->set('notification','Telechargement effectué avec succès !');
          }
          else //Sinon (la fonction renvoie FALSE).
          {
-              var_dump('Echec de l\'upload !');
+           $this->session->set('echec','Echec du telechargement !');
          }
     }
     else
     {
-         var_dump($erreur);
+      $this->session->set('echec',$erreur);
     }
 
-    return $_FILES['nom_img_fichier']['name'];
+    return $trim;
   }
 
 

@@ -18,31 +18,31 @@ class validationCommentaire extends validation{
     $this->contrainte = new contrainte();
   }
 
-  public function check(parametre $post){
+  public function validationCom(parametre $post){
     foreach ($post->all() as $key => $value) {
-      $this->checkChamps($key,$value);
+      $this->validationChamps($key,$value);
     }
     return $this->errors;
   }
 
-  private function checkChamps($name,$value){
-    if($name==='pseudo'){
-      $error=$this->checkPseudo($name,$value);
-      $this->addError($name,$error);
-    }
-    elseif ($name==='commentaire') {
-      $error=$this->checkCommentaire($name,$value);
-      $this->addError($name,$error);
-    }
-  }
-
-  private function addError($name,$error){
+  private function ajoutErreur($name,$error){
     if($error){
       $this->errors+=[$name=>$error];
     }
   }
 
-  private function checkPseudo($name,$value){
+  private function validationChamps($name,$value){
+    if($name==='pseudo'){
+      $error=$this->validationPseudo($name,$value);
+      $this->ajoutErreur($name,$error);
+    }
+    elseif ($name==='commentaire') {
+      $error=$this->validationCommentaire($name,$value);
+      $this->ajoutErreur($name,$error);
+    }
+  }
+
+  private function validationPseudo($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('pseudo',$value);
     }
@@ -54,7 +54,7 @@ class validationCommentaire extends validation{
     }
   }
 
-  private function checkCommentaire($name,$value){
+  private function validationCommentaire($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('commentaire',$value);
     }

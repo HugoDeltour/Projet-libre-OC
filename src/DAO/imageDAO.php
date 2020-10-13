@@ -26,7 +26,7 @@ class imageDAO extends DAO{
 
 	public function getImages(){
 		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image ORDER BY id_image';
-		$result = $this->createQuery($sql);
+		$result = $this->requete($sql);
 		$img=[];
 		foreach ($result as $row) {
 			$idImg=$row['id_image'];
@@ -38,7 +38,7 @@ class imageDAO extends DAO{
 
 	public function getImage($imgID){
 		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image WHERE id_image = ?';
-		$result= $this->createQuery($sql,[$imgID]);
+		$result= $this->requete($sql,[$imgID]);
 		$img = $result->fetch();
 		$result->closeCursor();
 		return $this->buildObjectImage($img);
@@ -46,12 +46,12 @@ class imageDAO extends DAO{
 
 	public function ajoutImage(parametre $img,$file){
 		$sql = 'INSERT INTO image (titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img) VALUES(?,?,?,?,?,?)';
-		$this->createQuery($sql, [$img->get('titre_image'),$file,$img->get('date_image'),$img->get('lieu_image'),$img->get('categorie'),$img->get('alt')]);
+		$this->requete($sql, [$img->get('titre_image'),$file,$img->get('date_image'),$img->get('lieu_image'),$img->get('categorie'),$img->get('alt')]);
 	}
 
 	public function modifImage(parametre $post, $imgID,$file){
 		$sql = 'UPDATE image SET titre_image=:titre, nom_img_fichier=:nom, date_image=:dateImg, lieu_image=:lieu, categorie=:categorie, alter_img=:alt WHERE id_image =:imgID ';
-		$this->createQuery($sql,[
+		$this->requete($sql,[
 			'titre'=> $post->get('titre_image'),
 			'nom'=> $file,
 			'dateImg'=> $post->get('date_image'),
@@ -64,14 +64,14 @@ class imageDAO extends DAO{
 
 	public function supprimerImage($imgID){
 		$sql = 'DELETE FROM commentaire WHERE commentaire_id_image=?';
-		$this->createQuery($sql,[$imgID]);
+		$this->requete($sql,[$imgID]);
 		$sql = 'DELETE FROM image WHERE id_image=?';
-		$this->createQuery($sql,[$imgID]);
+		$this->requete($sql,[$imgID]);
 	}
 
 	public function getCategorie($categorie){
 		$sql ='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image WHERE categorie=?';
-		$result = $this->createQuery($sql,[$categorie]);
+		$result = $this->requete($sql,[$categorie]);
 		$img=[];
 		foreach ($result as $row) {
 			$id_img = $row['id_image'];
@@ -83,7 +83,7 @@ class imageDAO extends DAO{
 
 	public function getCarrousel(){
 		$sql='SELECT id_image, titre_image, nom_img_fichier, date_image, lieu_image, categorie, alter_img FROM image WHERE categorie=? ORDER BY id_image';
-		$result = $this->createQuery($sql,['carrousel']);
+		$result = $this->requete($sql,['carrousel']);
 		$img=[];
 		$idImg=0;
 		foreach ($result as $row) {
@@ -96,7 +96,7 @@ class imageDAO extends DAO{
 
 	public function compteCarrousel(){
 		$sql='SELECT COUNT(*) FROM image WHERE categorie=\'carrousel\'';
-		$result = $this->createQuery($sql);
+		$result = $this->requete($sql);
 		$compte = $result->fetchColumn();
 		$result->closeCursor();
 		return $compte;

@@ -18,29 +18,29 @@ class validationContact extends validation{
     $this->contrainte = new contrainte();
   }
 
-  public function check(parametre $post){
+  public function validationDemande(parametre $post){
     foreach ($post->all() as $key => $value) {
-      $this->checkChamps($key,$value);
+      $this->validationChamps($key,$value);
     }
     return $this->errors;
   }
 
-  private function checkChamps($name,$value){
+  private function validationChamps($name,$value){
     if($name==='pseudo'){
-      $error=$this->checkPseudo($name,$value);
+      $error=$this->validationPseudo($name,$value);
       $this->addError($name,$error);
     }
     elseif ($name==='email'){
 
-      $error=$this->checkMail($name,$value);
+      $error=$this->validationMail($name,$value);
       $this->addError($name,$error);
     }
     elseif ($name==='message'){
-      $error=$this->checkMessage($name,$value);
+      $error=$this->validationMessage($name,$value);
       $this->addError($name,$error);
     }
     elseif ($name==='sujet'){
-      $error=$this->checkSujet($name,$value);
+      $error=$this->validationSujet($name,$value);
       $this->addError($name,$error);
     }
   }
@@ -51,7 +51,7 @@ class validationContact extends validation{
     }
   }
 
-  private function checkPseudo($name,$value){
+  private function validationPseudo($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('pseudo',$value);
     }
@@ -63,7 +63,7 @@ class validationContact extends validation{
     }
   }
 
-  private function checkMail($name,$value){
+  private function validationMail($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('E-mail',$value);
     }
@@ -75,7 +75,7 @@ class validationContact extends validation{
     }
   }
 
-  private function checkMessage($name,$value){
+  private function validationMessage($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('message',$value);
     }
@@ -87,7 +87,7 @@ class validationContact extends validation{
     }
   }
 
-  private function checkSujet($name,$value){
+  private function validationSujet($name,$value){
     if($this->contrainte->nonVide($name,$value)){
       return $this->contrainte->nonVide('sujet',$value);
     }
