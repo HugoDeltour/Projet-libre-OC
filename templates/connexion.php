@@ -10,5 +10,8 @@
   <label for="password">Mot de passe (*)</label></br>
   <input type="password" id="password" name="password"></br>
   <?=isset($errors['password'])?$errors['password']:'';?>
+  <p>(*) Champs obligatoire</p>
   <input type="submit" value="Connexion" id="submit" name="submit"></br>
 </form>
+
+<a href="../index.php?route=MDPoublie">Mot de passe oublié ?</a>

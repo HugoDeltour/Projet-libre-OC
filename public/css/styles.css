@@ -103,13 +103,12 @@ div [class ~='tox']{
 
 .d-block{
   width: auto;
-  height: 400px;
+  height: 600px;
 }
 
 #carrousel{
-  margin-top:100px;
+  margin-top:20px;
 }
-
 
 @media screen and (max-width: 1000px){
 
@@ -123,6 +122,14 @@ div [class ~='tox']{
 
   .imageCarrousel img{
     height: 350px;
+  }
+
+}
+
+@media screen and (max-width: 900px){
+
+  .d-block{
+    height: 400px;
   }
 
 }
@@ -155,6 +162,7 @@ div [class ~='tox']{
       width:400px;
       height: auto;
     }
+
 }
 
 @media screen and (max-width: 650px){
@@ -238,8 +246,6 @@ div [class ~='tox']{
   }
 }
 
-
-
 @media screen and (max-width: 360px){
 
   #commentaire,#description,div [class ~='tox']{
@@ -273,6 +279,11 @@ div [class ~='tox']{
 
   .card-img{
     width:250px;
+    height: auto;
+  }
+
+  .d-block{
+    width: 100%;
     height: auto;
   }
 

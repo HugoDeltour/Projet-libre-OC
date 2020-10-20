@@ -4,11 +4,6 @@
 ?>
 <h1>Modification du mot de passe</h1>
 <form method="POST">
-  <div class="MDP">
-    <label for="MotDePasse">Ancien mot de passe (*)</label></br>
-    <input type="password" id="MotDePasse" name="MotDePasse"></br>
-    <?=isset($errors['MotDePasse'])?$errors['MotDePasse']:'';?>
-  </div>
 
   <div class="MDP">
     <label for="nvMotDePasse">Nouveau mot de passe (*)</label></br>

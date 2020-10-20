@@ -9,7 +9,7 @@ use App\config\parametre;
  * class permettant la validation de certaine contrainte concernant le pseudo, le mail et le message que souhaite envoyer l'utilisateur
  */
 
-class validationContact extends validation{
+class validationRecupMdp extends validation{
 
   private $errors=[];
   private $contrainte;
@@ -34,12 +34,8 @@ class validationContact extends validation{
       $error=$this->validationMail($name,$value);
       $this->addError($name,$error);
     }
-    elseif ($name==='message'){
-      $error=$this->validationMessage($name,$value);
-      $this->addError($name,$error);
-    }
-    elseif ($name==='sujet'){
-      $error=$this->validationSujet($name,$value);
+    elseif ($name==='code'){
+      $error=$this->validationCode($name,$value);
       $this->addError($name,$error);
     }
   }
@@ -74,29 +70,18 @@ class validationContact extends validation{
     }
   }
 
-  private function validationMessage($name,$value){
+  private function validationCode($name,$value){
     if($this->contrainte->nonVide($name,$value)){
-      return $this->contrainte->nonVide('message',$value);
+      return $this->contrainte->nonVide('Code',$value);
     }
     if($this->contrainte->longMin($name,$value,2)){
-      return $this->contrainte->longMin('message',$value,2);
+      return $this->contrainte->longMin('Code',$value,2);
     }
-    if($this->contrainte->longMax($name,$value,255)){
-      return $this->contrainte->longMax('message',$value,255);
+    if($this->contrainte->longMax($name,$value,8)){
+      return $this->contrainte->longMax('Code',$value,255);
     }
   }
 
-  private function validationSujet($name,$value){
-    if($this->contrainte->nonVide($name,$value)){
-      return $this->contrainte->nonVide('sujet',$value);
-    }
-    if($this->contrainte->longMin($name,$value,2)){
-      return $this->contrainte->longMin('sujet',$value,2);
-    }
-    if($this->contrainte->longMax($name,$value,255)){
-      return $this->contrainte->longMax('sujet',$value,255);
-    }
-  }
 
 }
 

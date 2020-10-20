@@ -179,12 +179,12 @@ class backController extends Controller{
           $errors['nvMotDePasse2']='<p>Le mot de passe ne correspond pas</p>';
         }
       }
-      return $this->view->rendu('modifMotDePasse',[
+      return $this->view->rendu('modifPassword',[
         'post'=>$post,
         'errors'=>$errors
       ]);
     }
-    return $this->view->rendu('modifMotDePasse',[
+    return $this->view->rendu('modifPassword',[
       'post'=>$post,
     ]);
   }

@@ -62,9 +62,48 @@ class utilisateurDAO extends DAO{
   public function modifMotDepasse(parametre $post, $idUser){
     $sql = 'UPDATE user SET password=:password WHERE id_user =:user_id ';
     $this->requete($sql,[
-      'password'=>password_hash($post->get('nvPassword'),PASSWORD_BCRYPT),
+      'password'=>password_hash($post->get('nvMotDePasse'),PASSWORD_BCRYPT),
       'user_id'=>$idUser
     ]);
   }
+
+  public function insertRecup(parametre $post,$code){
+    $sql = 'INSERT INTO recuperation (pseudo,code_recup) VALUES (?,?)';
+    $this->requete($sql,[$post->get('pseudo'),$code]);
+  }
+
+  public function existRecup(parametre $post){
+    $sql = 'SELECT id_recup FROM recuperation WHERE pseudo = ?';
+    return $this->requete($sql,[$post->get('pseudo')]);
+  }
+
+  public function miseAJourRecup(parametre $post,$code){
+    $sql = 'UPDATE recuperation SET code_recup = ? WHERE pseudo = ?';
+    $this->requete($sql,[$code,$post->get('pseudo')]);
+  }
+
+  public function validationCode(parametre $post,$code){
+    $sql = 'SELECT id_recup FROM recuperation WHERE code_recup = ? AND pseudo = ?';
+    $requete = $this->requete($sql,[$code,$post->get('pseudo')]);
+    return $requete->rowCount();
+  }
+
+  public function confirmCode(parametre $post){
+    $sql = 'UPDATE recuperation SET confirmation = 1 WHERE pseudo = ?';
+    $this->requete($sql,[$post->get('pseudo')]);
+  }
+
+  public function modifMotDePassePseudo(parametre $post, $pseudo){
+    $sql = 'UPDATE user SET password=:password WHERE pseudo =:pseudo ';
+    $this->requete($sql,[
+      'password'=>password_hash($post->get('nvMotDePasse'),PASSWORD_BCRYPT),
+      'pseudo'=>$pseudo
+    ]);
+  }
+  public function supRecup($pseudo){
+    $sql = 'DELETE FROM recuperation WHERE pseudo = ?';
+    $this->requete($sql,[$pseudo]);
+  }
+
 }
 ?>

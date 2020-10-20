@@ -175,8 +175,8 @@ class router{
           }
         }
         elseif ($route==='modifPassword') {
-          if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
-            $this->backController->modifPassword($this->request->getpost(),$this->request->getSession()->get('id'));
+          if(!empty($this->request->getSession())){
+            $this->backController->modifMotDePasse($this->request->getpost(),$this->request->getSession()->get('id'));
           }else{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');
@@ -203,7 +203,7 @@ class router{
         elseif ($route==='modifImgCarrousel') {
           if(!empty($this->request->getSession()) && $this->request->getSession()->get('role')==='admin'){
             if(!preg_match("/mobile/i",$_SERVER['HTTP_USER_AGENT'])){
-              $this->backController->modifImgCarrousel($this->request->getpost(),$this->request->getGet()->get('idImg'));
+              $this->backController->modifImgCarrousel($this->request->getPost(),$this->request->getGet()->get('idImg'));
             }
             else{
               $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
@@ -213,6 +213,15 @@ class router{
             $this->request->getSession()->set('echec','Vous n\'avez pas accès à cette page');
             header('Location:../index.php');
           }
+        }
+        elseif ($route==='MDPoublie'){
+          $this->frontController->recupMDP($this->request->getPost());
+        }
+        elseif ($route==='confirmationCode'){
+          $this->frontController->confirmationCode($this->request->getPost());
+        }
+        elseif ($route==='modifPasswordCode'){
+          $this->frontController->modifMDPCode($this->request->getPost());
         }
         else{
           $this->errorController->errorNotFound();

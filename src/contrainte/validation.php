@@ -28,6 +28,11 @@ class validation{
       $errors = $validationContact->validationDemande($data);
       return $errors;
     }
+    elseif ($name==='recupMDP') {
+      $validationRecupMdp = new validationRecupMdp();
+      $errors = $validationRecupMdp->validationDemande($data);
+      return $errors;
+    }
   }
 
 }

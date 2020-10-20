@@ -1,6 +1,5 @@
 <?php $this->title="Accueil";
   require('menu.php');
-
 if(!empty($this->session->get('notification'))){
   ?>
   <div id="notification" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -29,27 +28,29 @@ if(!empty($this->session->get('echec'))){
 ?>
 <?php if(!empty($req)){
 ?>
-<div class="carousel slide" id="carouselControls" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="../Photos/<?=$req[0]->getCategorie()?>/<?=$req[0]->getNom()?>" class="d-block" alt="<?=$req[0]->getAlt()?>">
-    </div>
-    <?php for($i=1;$i<$compteCarrousel;$i++){
-      ?>
-      <div class="carousel-item ">
-        <img src="../Photos/<?=$req[$i]->getCategorie()?>/<?=$req[$i]->getNom()?>" class="d-block" alt="<?=$req[$i]->getAlt()?>">
+<div id="carrousel">
+  <div class="carousel slide" id="carouselControls" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../Photos/<?=$req[0]->getCategorie()?>/<?=$req[0]->getNom()?>" class="d-block" alt="<?=$req[0]->getAlt()?>">
       </div>
-      <?php
-    }?>
+      <?php for($i=1;$i<$compteCarrousel;$i++){
+        ?>
+        <div class="carousel-item ">
+          <img src="../Photos/<?=$req[$i]->getCategorie()?>/<?=$req[$i]->getNom()?>" class="d-block" alt="<?=$req[$i]->getAlt()?>">
+        </div>
+        <?php
+      }?>
+    </div>
+    <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev" >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Précédent</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Suivant</span>
+    </a>
   </div>
-  <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev" >
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Précédent</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Suivant</span>
-  </a>
 </div>
 <?php
 }

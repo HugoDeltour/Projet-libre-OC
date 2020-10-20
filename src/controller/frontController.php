@@ -137,6 +137,102 @@ class frontController extends Controller{
     ]);
   }
 
+  public function recupMDP(parametre $post){
+    if($post->get('submit')){
+      $user= $this->utilisateurDAO->validationUtilisateur($post);
+      $errors=$this->validation->validation($post,'recupMDP');
+      $code=null;
+      $this->session->set('pseudo',$post->get('pseudo'));
+      if(!$errors){
+        if(preg_match("/existant/",$user)){
+          for ($i=0; $i < 8; $i++) {
+            $code .= rand(0,9);
+          }
+          $pseudo_exist = $this->utilisateurDAO->existRecup($post);
+          $pseudo_exist = $pseudo_exist->rowCount();
+          if($pseudo_exist == 1){
+            $this->utilisateurDAO->miseAJourRecup($post,$code);
+          }
+          else{
+            $this->utilisateurDAO->insertRecup($post,$code);
+          }
+          mail($post->get('email'),'Récupération du mot de passe',$code,'From:libre@dixideo.fr');
+          header('Location:../index.php?route=confirmationCode');
+        }
+      }
+      else {
+        return $this->view->rendu('recupMDP',[
+          'post'=>$post,
+          'errors'=>$errors
+        ]);
+      }
+    }
+    return $this->view->rendu('recupMDP',[
+      'post'=>$post
+    ]);
+  }
+
+  public function confirmationCode(parametre $post){
+    if ($post->get('submit')) {
+      $code = htmlspecialchars($post->get('code'));
+      $errors=$this->validation->validation($post,'recupMDP');
+      if(!$errors){
+        $codeValid = $this->utilisateurDAO->validationCode($post,$code);
+        if($codeValid==1){
+          $this->utilisateurDAO->confirmCode($post);
+          header('Location:../index.php?route=modifPasswordCode');
+        }
+        else{
+          if(empty($errors)){
+            $errors['code']='<p>Code invalide</p>';
+            return $this->view->rendu('confirmCode',[
+              'post'=>$post,
+              'errors'=>$errors
+            ]);
+          }
+        }
+      }
+      return $this->view->rendu('confirmCode',[
+        'post'=>$post,
+        'errors'=>$errors
+      ]);
+    }
+    return $this->view->rendu('confirmCode',[
+      'post'=>$post
+    ]);
+  }
+
+  public function modifMDPCode(parametre $post){
+    if($post->get('submit')){
+      $errors=$this->validation->validation($post,'utilisateur');
+      if (empty($errors)) {
+        if (strcmp($post->get('nvMotDePasse'),$post->get('nvMotDePasse2'))===0) {
+          $this->utilisateurDAO->modifMotDePassePseudo($post,$this->session->get('pseudo'));
+          $this->utilisateurDAO->supRecup($this->session->get('pseudo'));
+          $this->session->arret();
+          $this->session->depart();
+          $this->session->set('notification','Mot de passe modifié');
+          header('Location:../index.php');
+        }
+        else{
+          $errors['nvMotDePasse2']='<p>Le mot de passe ne correspond pas</p>';
+        }
+      }
+      else{
+        if(strcmp($post->get('nvMotDePasse'),$post->get('nvMotDePasse2'))!==0){
+          $errors['nvMotDePasse2']='<p>Le mot de passe ne correspond pas</p>';
+        }
+      }
+      return $this->view->rendu('modifMDPCode',[
+        'post'=>$post,
+        'errors'=>$errors
+      ]);
+    }
+    return $this->view->rendu('modifMDPCode',[
+      'post'=>$post
+    ]);
+  }
+
 }
 
 ?>
